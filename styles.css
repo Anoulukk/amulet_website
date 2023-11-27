@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans Lao', sans-serif;
+    background-image: url('./img/sas.png'); 
+    background-color: #f0f0f0; 
+    background-size: cover;
+}
+
+/* Auction page */
+
+.img-auction{
+    width: 250px;
+    transition: transform 0.3s ease; 
+}
+.auction-box:hover img {
+    transform: scale(0.95); /* Change the scale factor as needed */
+  }
+.category-btn{
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+.category-btn:active {
+    background-color: lightgray; /* Change to the color you want when clicked */
+    /* Additional styles for clicked state */
+}
+.browse-store {
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+    /* Additional styles */
+}
+
+.browse-auction {
+    cursor: pointer;
+    background-color: white;
+    color: #000;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 1px 110px;
+    transition: 0.3s ease;
+    /* Additional styles */
+}
+
+.browse-auction:hover {
+    border: 1px solid #ffd500; /* Change to the color you want when clicked */
+    /* Additional styles for clicked state */
+}
+#status{
+    color: green;
+}
+
+/* End Auction page */
+
+/* Auction details page*/
+.auction-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #00000000;
+
+    border-radius: 5px;
+    padding-bottom: 10px;
+    /* background-color: #FFF6CA; */
+}
+.auction-box:active {
+    border: 1px solid #ffd500;
+}
+.auction-info {
+    display: flex;
+}
+.auction-status-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.current-bid {
+    flex: 0.6;
+    text-align: left;
+    border-right: 1px solid #00000024; 
+
+}
+.minimum-bid{
+    text-align: center;
+}
+.small-images-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.img-small {
+    margin: 20px;
+}
+/* end auction details page */
+
+/* header */
+.sticky-bottom{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.nav-link {
+    position: relative; 
+    border-top: 2px solid rgb(174, 174, 174); 
+
+}
+
+.nav-link:hover {
+    color: #ffd700;
+    border-top: 2px solid #ffd700; 
+}
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    z-index: 1; 
+}
+/* end header  */
+
+
+
+.category{
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+#winning-user-text {
+    font-size: 20px;
+    animation: text-color-change 2s infinite;
+}
+
+@keyframes text-color-change {
+    0% {
+        color: red;
+    }
+    25% {
+        color: red;
+    }
+    50% {
+        color: orange;
+    }
+    75% {
+        color: orange;
+    }
+    100% {
+        color: red;
+    }
+
+}
+
+/* css index page */
+.box {
+    display: flex;
+    flex-wrap: wrap; 
+    margin-top: 20px;
+}
+
+.search-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    /* background-color: #FFF6CA; */
+    
+}
+.search-box:active {
+    border: 1px solid #ffd500;
+}
+.store-img {
+    max-width: 140px;
+    max-height: 180px;
+    padding-top: 10px;
+}
+.store-details{
+    width: 98%;
+}
+.store-name {
+    color: rgb(71, 71, 71);
+    background-color: #FFF6CA;
+    margin: 0 0 5px 0;
+    transition: background-color 0.3s ease;
+    
+}
+
+
+.store-name:hover {
+    cursor: pointer;
+    color: #ffd700; 
+    background-color: #777777;
+}
+.news-title {
+    padding: 10px;
+    cursor: pointer;
+    color: #000;
+    background-color: #FFF6CA;
+    border: 1px solid #ffffff;
+    margin-bottom: 0;
+    transition: background-color 0.3s ease;
+}
+.news-title:hover > .category {
+    color: #ffd700;
+}
+.news-title:hover{
+    background-color: #777777;
+}
+.p-direct{
+
+    text-decoration: none;
+}
+
+
+
+/* footer*/
+.flex {
+    background: #FFF6CA;
+    padding: 15px;
+    text-align: left;
+    border-top: 2px solid rgb(0, 0, 0);
+  }
+  .flex ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .flex li {
+    display: inline-block;
+    margin-right: 20px;
+    
+  }
+  .flex a{
+      color:black;
+      text-decoration: none;
+  }
+  
+  .flex li:last-child {
+    margin-right: 0;
+  }
+  .flex a:hover{
+    color: #ffd700;
+  }
+
+  /* end footer  */
