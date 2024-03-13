@@ -1,6 +1,6 @@
 let currentBid = 200;
 let minimumBidAmount = 100; 
-let countdownMinutes = 1;
+let countdownMinutes = 0;
 let countdownSeconds = 0;
 let countdownInterval;
 let winningUserName = "";
@@ -19,6 +19,7 @@ const largeImage = document.getElementById("largeImage");
 const smallImages = document.querySelectorAll(".img-small");
 const finalBidDisplay = document.getElementById("final-bid");
 const AuctionStatus = document.getElementById("status");
+const market_img = document.querySelectorAll(".market-img");
 // Add a submit event listener to the form
 const bidButton = document.getElementById("bid-form");
 bidButton.addEventListener("submit", handleFormSubmit);
@@ -56,7 +57,7 @@ function updateCountdown() {
 
 function showErrorMessage(message) {
     Swal.fire({
-        title: 'Error',
+        title: 'ຜິດພາດ',
         text: message,
         icon: 'error',
         confirmButtonText: 'OK'
@@ -69,7 +70,7 @@ function disableInputAndButton() {
 // Function to show the popup with the winning user's name
 function showWinningUserPopup() {
     Swal.fire({
-        title: 'Congratulations',
+        title: 'ຂໍສະແດງຄວາມຍິນດີ',
         text: `${winningUserName} ແມ່ນຜູ້ຊະນະປະມູນດ້ວຍລາຄາ ${currentBid} ກີບ`,
         confirmButtonText: 'OK'
     });
@@ -113,7 +114,7 @@ function startCountdown() {
             countdownSeconds--;
         }
         updateCountdown();
-    }, 100); // Use 1000 milliseconds (1 second) as the interval
+    }, 1000); // Use 1000 milliseconds (1 second) as the interval
 }
 
 
@@ -136,7 +137,7 @@ function handleFormSubmit(event) {
         currentBidDisplay.textContent = currentBid;
         // Clear the bid input field
     } else {
-        showErrorMessage("Bid must be higher than the current bid.");
+        showErrorMessage("ລາຄາທີ່ສະເໜີຕ້ອງສູງກວ່າລາຄາປັດຈຸບັນ");
     }
     }
 }
@@ -177,4 +178,12 @@ function addBidToHistoryTable(bidAmount, bidderName) {
 // Add a new bid to the bid history table with bidder name, bid amount, and bid time
 addBidToHistoryTable(150, "John Doe");
 addBidToHistoryTable(200, "Alice Smith");
+
+
+
+$(document).ready(function(){
+
+
+    
+});
 

@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col"  style="margin-top: 20px;">
+      <div class="col" style="margin-top: 20px;">
         <h3>ໝວດພຣະເຄື່ອງ</h3>
         <h5 class="news-title"><a href="" class="category">ພຣະຫຼຽນ</a></h5>
         <h5 class="news-title"><a href="" class="category">ພຣະບູຊາ</a></h5>
@@ -40,7 +40,9 @@
 
       <div class="col-8 box">
         <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
+          <a href="amulet_detail.php">
+            <img class="store-img" src="./img/skd.png" alt="">
+          </a>
           <div class="store-details">
             <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
             <h6 style="color:green">ພ້ອມເຊົ່າ</h6>

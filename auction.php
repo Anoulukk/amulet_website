@@ -43,7 +43,7 @@
 
             <div class="col-16 box">
                 <div class="col-3 text-center auction-box">
-                    <a href="#"><img class="img-auction" src="./img/skd.png" alt="" ></a>
+                    <a href="auction_detail.php"><img class="img-auction" src="./img/skd.png" alt="" ></a>
                     
                     <div class="">
                         <h6 class="auction-status">ກຳລັງປະມູນ</h6>

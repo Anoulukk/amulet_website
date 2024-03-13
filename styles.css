@@ -11,6 +11,13 @@ body {
     background-color: #f0f0f0; 
     background-size: cover;
 }
+/* amulet details */
+.amulet-status{
+ display: flex;
+ padding-right: 15px;
+}
+
+/*End amulet details */
 
 /* Auction page */
 
@@ -101,6 +108,10 @@ body {
 
 .img-small {
     margin: 20px;
+    transition: all .2s ease-in-out;
+}
+.img-small:hover{
+    transform: scale(1.1);
 }
 /* end auction details page */
 
@@ -113,10 +124,10 @@ body {
 }
 .nav-link {
     position: relative; 
-    border-top: 2px solid rgb(174, 174, 174); 
-
+    font-size: 18px;
+    border-top: 2px solid rgba(255, 255, 255, 0.34); 
+    color: white;
 }
-
 .nav-link:hover {
     color: #ffd700;
     border-top: 2px solid #ffd700; 
@@ -127,9 +138,26 @@ body {
     left: 10px;
     z-index: 1; 
 }
+.register-btn{
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    z-index: 1; 
+
+}
+#navbar {
+    transition: all 0.3s ease; /* Transition all properties over 0.3 seconds with ease timing function */
+}
+  /* Define styles for fixed position */
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    bottom: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+
+}
+
 /* end header  */
-
-
 
 .category{
     color: black;
@@ -138,6 +166,7 @@ body {
 }
 
 #winning-user-text {
+    cursor: pointer;
     font-size: 20px;
     animation: text-color-change 2s infinite;
 }
@@ -178,6 +207,21 @@ body {
     /* background-color: #FFF6CA; */
     
 }
+.store-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #FFF6CA; */
+    
+}
+.amulet-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #FFF6CA; */
+    
+}
 .search-box:active {
     border: 1px solid #ffd500;
 }
@@ -186,7 +230,57 @@ body {
     max-height: 180px;
     padding-top: 10px;
 }
+
+/* store page */
+.market-img {
+    margin-top: 10px;
+    max-width: 140px;
+    max-height: 140px; /* Set max-height to the same value as max-width to ensure a square */
+    border-radius: 50%; /* Use 50% border-radius to create a circular appearance */
+    border: 3px solid rgb(255, 249, 213);
+    overflow: hidden; /* Ensure the content within the container is clipped to maintain the square shape */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Add a smooth transition effect for border-color and box-shadow */
+}
+.top-amulet-store-img{
+    margin-top: 10px;
+    max-width: 100px;
+    max-height: 140px; /* Set max-height to the same value as max-width to ensure a square */
+    border-radius: 50%; /* Use 50% border-radius to create a circular appearance */
+    border: 3px solid rgb(255, 249, 213);
+    overflow: hidden; /* Ensure the content within the container is clipped to maintain the square shape */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Add a smooth transition effect for border-color and box-shadow */
+
+}
+.top-amulet-store-img:hover {
+    border-color: rgb(255, 235, 123); /* Change the border color on hover */
+    box-shadow: 0 0 15px rgb(255, 224, 45); /* Add a box shadow to create a glowing effect on hover */
+}
+.market-img:hover {
+    border-color: gold; /* Change the border color on hover */
+    box-shadow: 0 0 15px orange; /* Add a box shadow to create a glowing effect on hover */
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star {
+    font-size: 24px;
+    color: gold;
+    cursor: pointer;
+}
+
+.star:hover {
+    color: orange;
+}
+
+
+
+
 .store-details{
+    margin-top: 5px;
     width: 98%;
 }
 .store-name {
@@ -201,7 +295,7 @@ body {
 .store-name:hover {
     cursor: pointer;
     color: #ffd700; 
-    background-color: #777777;
+    background-color: #ffffff;
 }
 .news-title {
     padding: 10px;
@@ -216,7 +310,7 @@ body {
     color: #ffd700;
 }
 .news-title:hover{
-    background-color: #777777;
+    background-color: #ffffff;
 }
 .p-direct{
 
@@ -230,7 +324,7 @@ body {
     background: #FFF6CA;
     padding: 15px;
     text-align: left;
-    border-top: 2px solid rgb(0, 0, 0);
+    border-top: 2px solid rgb(255, 255, 255);
   }
   .flex ul {
     list-style-type: none;
