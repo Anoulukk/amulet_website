@@ -38,15 +38,18 @@
                         <p>ເວລາທີ່ເຫຼືອ: <span id="countdown"></span></p>
                         <p>ສະຖານະ: <span id="status">ກຳລັງປະມູນ</span></p>
                     </div>
-                    <div class="bid-section">
+                    <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a>
+
+                    <div class="bid-section" hidden>
                         <form id="bid-form" class="form-group">
                             <div class="input-group">
                                 <input type="number" id="bid-amount" class="form-control" placeholder="ປ້ອນລາຄາ" step="100">
                                 <button type="submit" id="place-bid" class="btn btn-dark">ສະເໜີລາຄາ</button>
                             </div>
                         </form>
-                    </div><br>
+                    </div>
                     <div class="details">
+                    <br>
                         <h5>ລາຍລະອຽດ</h5>
                         <p id="Auction-detail">ພຣະກິ່ງຍອດທຸງໄຊ : ສ້າງທີ່ວັດໂພນໄຊ ປຸກເສກທີ່ວັດຈະເລີນໄຊ<br>
                             ສ້າງໂດຍ : ທີມງານໄວລຸ້ນສະສົມພຣະເຄື່ອງ<br>
@@ -85,7 +88,7 @@
                     <!-- Bid history rows will be added dynamically using JavaScript -->
                 </tbody>
             </table>
-            <p id="winning-user-text" style="display: none;">ກົດເພື່ອເບິ່ງຊື່ຜູ້ຊະນະປະມູນ</p>
+            <p class="winning-user-text" id="winning-user-text" style="display: none;">ກົດເພື່ອເບິ່ງຊື່ຜູ້ຊະນະປະມູນ</p>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

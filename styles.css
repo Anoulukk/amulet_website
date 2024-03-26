@@ -165,9 +165,33 @@ body {
     text-decoration: none;
 }
 
-#winning-user-text {
+.winning-user-text {
     cursor: pointer;
     font-size: 20px;
+    animation: text-color-change 2s infinite;
+}
+
+@keyframes text-color-change {
+    0% {
+        color: red;
+    }
+    25% {
+        color: red;
+    }
+    50% {
+        color: orange;
+    }
+    75% {
+        color: orange;
+    }
+    100% {
+        color: red;
+    }
+
+}
+.text-popular {
+    cursor:default;
+    font-size: 30px;
     animation: text-color-change 2s infinite;
 }
 
@@ -321,7 +345,7 @@ body {
 
 /* footer*/
 .flex {
-    background: #FFF6CA;
+    background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);
     padding: 15px;
     text-align: left;
     border-top: 2px solid rgb(255, 255, 255);

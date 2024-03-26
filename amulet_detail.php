@@ -32,9 +32,10 @@
                         <h6 class="amulet-status">ລາຄາ:&nbsp;<span>5,000,000</span></h6>
                         <h6 class="amulet-status">ໝວດໝູ່:&nbsp;<span>ພຣະກິ່ງ</span></h6>
                         <h6 class="amulet-status">ສະຖານະ:&nbsp;<span id="status">ພ້ອມເຊົ່າ</span></h6>
-                    </div>
-
-                    <div class="details">
+                    </div><br>
+                    <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a>
+                    <button hidden id="requestToOrder" class="btn btn-dark" style="width: 400px;">ກົດເພື່ອຂໍສັ່ງຊື້</button>
+                    <div class="details"><br>
                         <h5>ລາຍລະອຽດ</h5>
                         <p id="Auction-detail">ພຣະກິ່ງຍອດທຸງໄຊ : ສ້າງທີ່ວັດໂພນໄຊ ປຸກເສກທີ່ວັດຈະເລີນໄຊ<br>
                             ສ້າງໂດຍ : ທີມງານໄວລຸ້ນສະສົມພຣະເຄື່ອງ<br>
@@ -63,11 +64,25 @@
         const largeImage = document.getElementById("largeImage");
         const smallImages = document.querySelectorAll(".img-small");
         const span = document.getElementById("status");
-        if(span.innerText === "ພ້ອມເຊົ່າ"){
+        document.getElementById("requestToOrder").addEventListener("click", function() {
+            Swal.fire({
+                title: 'ສັ່ງຊື້',
+                text: 'ທ່ານເຈົ້າຕ້ອງການສັ່ງຊື້ບໍ?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'ຢືນຢັນ',
+                cancelButtonText: 'ຍົກເລີກ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "user_activity.php";
+                }
+            });
+        });
+        if (span.innerText === "ພ້ອມເຊົ່າ") {
             span.style.color = "green";
-        }else if(span.innerText === "ເຊົ່າແລ້ວ"){
+        } else if (span.innerText === "ເຊົ່າແລ້ວ") {
             span.style.color = "#da9100";
-        }else{
+        } else {
             span.style.color = "#cc0000";
         }
         // Add click event listeners to the small images

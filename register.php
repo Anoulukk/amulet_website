@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap-5.3.0-alpha3-dist/css/bootstrap.css">
+
     <link rel="stylesheet" href="styles.css">
 
     <title>Register</title>
     <style>
         .form-1-box {
             position: relative;
+            margin-top: 15px;
+
         }
 
         .form-1-box::before {
@@ -20,10 +23,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('./img/bg.png '); /* Replace 'your-image-url.jpg' with the URL of your background image */
+            background-image: url('./img/bg.png ');
+            /* Replace 'your-image-url.jpg' with the URL of your background image */
             background-size: cover;
             background-position: center;
-            filter: blur(5px); /* Adjust the blur radius as needed */
+            filter: blur(5px);
+            /* Adjust the blur radius as needed */
             z-index: -1;
         }
     </style>
@@ -36,38 +41,39 @@
             <div class="row">
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1 form-1-box wow fadeInUp bg-secondary border rounded">
+                <div class="col-md-10 offset-md-1 form-1-box wow fadeInUp  border border-warning rounded">
 
                     <form action="" method="post">
                         <!-- User's Credentials  -->
-                        <fieldset class="form-group border p-5">
+                        <img src="./img/logo_black.png" alt="">
+                        <fieldset class="form-group border border-warning p-5">
                             <legend class="w-auto px-2">ລົງທະບຽນບັນຊີຜູ້ໃຊ້</legend>
 
-                            <div class="form-group row">
+                            <div class="form-group row mt-2">
                                 <label for="username" class="col-sm-2 col-form-label">ຊື່ຜູ້ໃຊ້:</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control username" id="username" placeholder="Username..." name="username">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mt-2">
                                 <label for="email" class="col-sm-2 col-form-label">ອີເມວ:</label>
                                 <div class="col-sm-10">
                                     <input type="email" class="form-control email" id="email" placeholder="email..." name="email">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mt-2">
                                 <label for="tel" class="col-sm-2 col-form-label">ເບີໂທ:</label>
                                 <div class="col-sm-10">
                                     <input type="tel" class="form-control tel" id="tel" placeholder="tel..." name="tel">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mt-2">
                                 <label for="password" class="col-sm-2 col-form-label">ລະຫັດຜ່ານ:</label>
                                 <div class="col-sm-10">
                                     <input type="password" class="form-control password" id="password" placeholder="password..." name="password">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mt-2">
                                 <label for="confirm-password" class="col-sm-2 col-form-label">ຢືນຢັນລະຫັດຜ່ານ:</label>
                                 <div class="col-sm-10">
                                     <input type="password" class="form-control confirm-password" id="confirm-password" placeholder="confirm-password..." name="confirm-password">
@@ -76,27 +82,26 @@
 
                         </fieldset>
                         <!-- User's Preferences  -->
-                        <fieldset class="form-group border p-3">
-                            <legend class="w-auto px-2">User's Preferences</legend>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="preferences" id="daily" value="daily">
-                                <label class="form-check-label" for="daily">I want <strong>daily</strong> emails</label>
+                        <fieldset class="form-group border border-warning p-3">
+                            <legend class="w-auto px-2">ເລືອກສະຖານະຜູ້ໃຊ້</legend>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="preferences" id="seller" value="seller">
+                                <label class="form-check-label" for="seller">ລົງທະບຽນເປີດຮ້ານຄ້າ</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="preferences" id="weekly" value="weekly">
-                                <label class="form-check-label" for="weekly">I want <strong>weekly</strong> emails</label>
+                                <input class="form-check-input" type="radio" name="preferences" id="user" value="user">
+                                <label class="form-check-label" for="user">ລົງທະບຽນເປັນຜູ້ຊື້</label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="preferences" id="monthly" value="monthly">
-                                <label class="form-check-label" for="monthly">I want <strong>monthly</strong> emails</label>
-                            </div>
+    
                         </fieldset>
                         <!-- Submit Button  -->
-                        <div class="form-group row text-right">
-                            <div class="col">
-                                <button type="submit" class="btn btn-warning ">ລົງທະບຽນ</button>
+                        <div class="form-group row">
+                            <div class="col d-flex justify-content-end align-items-center">
+                                <a href="login.php" class="text-dark" style="text-align: right;margin-right: 50px;cursor:pointer">ເຂົ້າສູ່ລະບົບ <a>
+                                <button type="submit" class="btn btn-warning ms-5">ລົງທະບຽນ</button>
                             </div>
                         </div>
+
                     </form>
 
                 </div>

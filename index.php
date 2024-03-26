@@ -21,7 +21,8 @@
           <input type="text" id="search" class="form-control" placeholder="ຄົ້ນຫາພຣະເຄື່ອງ">
           <button type="submit" id="search-btn" class="btn btn-dark">ຄົ້ນຫາ</button>
         </div>
-      </div>
+        <h3 class="text-center text-popular mt-3">ພຣະເຄື່ອງຍອດນິຍົມປະຈຳອາທິດ</h3>
+      </div> 
 
       <div class="col">
       </div>

@@ -11,9 +11,10 @@
 </head>
 
 <body>
+  
   <?php include('header.php'); ?>
   <div class="container justify-content-center align-items-center mb-5 mt-5">
-    <div class="col-12 text-center rounded" style="margin: 0 auto; background-image: linear-gradient(to bottom right, #fcc200, #f7e98e); height:70vh; align-items:center;width: 500px;">
+    <div class="col-12 text-center rounded" style="margin: 0 auto; background-image: linear-gradient(to bottom right, #fcc200, #f7e98e); height:70vh; align-items:center;">
       <h3 class="pt-3" style="color:white">
         ໄວລຸ້ນສະສົມພຣະເຄື່ອງ <br> ສູນລວມຮ້ານພຣະເຄື່ອງອອນລາຍ
       </h3>
