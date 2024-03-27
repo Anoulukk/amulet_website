@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao+Looped:wght@100..900&family=Noto+Serif+Lao:wght@100..900&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
 }
 
 body {
-    font-family: 'Noto Sans Lao', sans-serif;
+    font-family: 'Noto Serif Lao', serif;
     background-image: url('./img/sas.png'); 
     background-color: #f0f0f0; 
     background-size: cover;
@@ -336,6 +338,11 @@ body {
 .news-title:hover{
     background-color: #ffffff;
 }
+.active-news-title{
+    background-color: #ffffff;
+    color: #ffd700;
+}
+
 .p-direct{
 
     text-decoration: none;

@@ -33,6 +33,7 @@
           <img src="./img/amulet.jpg" class="me-5" alt="" width="100px">
           <img src="./img/amulet.jpg" class="me-5" alt="" width="100px">
           <img src="./img/amulet.jpg" class="me-5" alt="" width="100px">
+          <img src="./img/amulet.jpg" class="me-5" alt="" width="100px">
         </div>
       </div>
       <h3 class="mt-3">ສູນຈອງຫຼຽນ</h3>
