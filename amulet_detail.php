@@ -33,8 +33,8 @@
                         <h6 class="amulet-status">ໝວດໝູ່:&nbsp;<span>ພຣະກິ່ງ</span></h6>
                         <h6 class="amulet-status">ສະຖານະ:&nbsp;<span id="status">ພ້ອມເຊົ່າ</span></h6>
                     </div><br>
-                    <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a>
-                    <button hidden id="requestToOrder" class="btn btn-dark" style="width: 400px;">ກົດເພື່ອຂໍສັ່ງຊື້</button>
+                    <!-- <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a> -->
+                    <button  id="requestToOrder" class="btn btn-dark" style="width: 400px;">ກົດເພື່ອຂໍສັ່ງຊື້</button>
                     <div class="details"><br>
                         <h5>ລາຍລະອຽດ</h5>
                         <p id="Auction-detail">ພຣະກິ່ງຍອດທຸງໄຊ : ສ້າງທີ່ວັດໂພນໄຊ ປຸກເສກທີ່ວັດຈະເລີນໄຊ<br>

@@ -102,7 +102,7 @@
                 navItems[0].classList.add('active');
             } else if (fileName == 'auction.php' || fileName == 'auction_detail.php') {
                 navItems[1].classList.add('active');
-            } else if (fileName == 'preorder.php') {
+            } else if (fileName == 'preorder.php' || fileName == 'user_preorder_form.php') {
                 navItems[2].classList.add('active');
             } else if (fileName == 'store.php' || fileName == 'store_detail.php') {
                 navItems[3].classList.add('active');

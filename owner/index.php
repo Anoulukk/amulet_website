@@ -14,7 +14,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 bg-light rounded text-dark text-center p-3" style="margin: 0 auto; background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);height:80vh">
+            <div class="col-sm-3 bg-light rounded text-dark text-center p-3" style="margin: 0 auto; background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);height:75vh">
                 <div class="col" style="margin-top: 20px;">
                     <h3>ລາຍງານ</h3>
                     <h5 class="news-title" data-report="report_user_violations.php">ລາຍງານການເຮັດຜິດກົດ</h5>
