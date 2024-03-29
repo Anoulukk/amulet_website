@@ -21,7 +21,7 @@
         <p>ເປິດວັນຈັນຫາວັນສຸກ
           ເວລາ8:30-23:30</p>
         <p>ການຮັບປະກັນສິນຄ້າ<br>ໂອນບ໋ອກ,ໄດ້ຮັບພຣະເກ້100%</p>
-
+        <button class="btn btn-light mt-5" style="width: 300px;">ລາຍງານຮ້ານຄ້າ</button>
       </div>
 
       <div class="col-8 ">

@@ -31,7 +31,8 @@
         margin-bottom: auto;
         width: 400px;
         border-radius: 20px;
-        background-color: rgba(0, 0, 0, 0.5) !important;
+        background-color: rgba(255, 208, 0, 0.2) !important;
+
     }
 
     .social_icon span {
@@ -45,9 +46,7 @@
         cursor: pointer;
     }
 
-    .card-header h3 {
-        color: #FFC312;
-    }
+
 
     .social_icon {
         position: absolute;
@@ -113,41 +112,75 @@
         <div class="row">
 
             <!------ Include the above in your HEAD tag ---------->
-            <div class="d-flex justify-content-center mt-5">
-                <div class="card">
+            <div class="d-flex justify-content-center mt-3">
+                <div class="card" >
                     <div class="card-header text-center">
                         <h3>ລາຍລະອຽດຜູ້ຈອງ</h3>
 
                     </div>
                     <div class="card-body">
                         <form>
+                            <p class="form-label">ຊື່ ແລະ ນາມສະກຸນ:</p>
                             <div class="input-group form-group">
-
-                                <input type="text" class="form-control" placeholder="username">
-
+                                <input type="text" class="form-control" placeholder="ຊື່ ແລະ ນາມສະກຸນ">
                             </div>
+                            <p class="form-label mt-3">ເບີໂທ:</p>
                             <div class="input-group form-group">
-
-                                <input type="password" class="form-control" placeholder="password">
+                                <input type="password" class="form-control" placeholder="ເບີໂທ">
                             </div>
-                            <p  class="form-label">ລາຍລະອຽດໃນການຮັບເຄື່ອງ:</p>
+                            <p class="form-label mt-3">ລາຍລະອຽດໃນການຮັບເຄື່ອງ:</p>
                             <div class="input-group form-group">
-
                                 <textarea class="form-control" rows="3" placeholder="ສະຖານທີ່ຮັບເຄື່ອງ:"></textarea>
                             </div>
-
-                            <div class="form-group text-center mt-5">
+                            <div class="form-group text-center mt-3">
                                 <input type="submit" value="ຖັດໄປ" class="btn btn-warning">
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-center links">
-                            ຍັງບໍ່ມີບັນຊີ?<a href="register.php">ລົງທະບຽນບັນຊີຜູ້ໃຊ້</a>
-                        </div>
-                    </div>
-                    <a class="text-dark text-center mt-4" href="index.php">ເຂົ້າສູ່ໜ້າຫຼັກ</a>
+                  
                 </div>
+                <!-- <div class="card" style="width: 600px;">
+                    <div class="card-header text-center">
+                        <h3>ລາຍການທີ່ທ່ານເລືອກ</h3>
+
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="form-label">ເນື້ອທອງຄຳ</h5>
+                                <h5 class="form-label">1.998.000 ກີບ</h5>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="form-label">ເນື້ອທອງແດງ x5</h5>
+                                <h5 class="form-label">1.998.000 ກີບ</h5>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="form-label">ເນື້ອເງີນໜ້າກາກຄຳ x2</h5>
+                                <h5 class="form-label">1.998.000 ກີບ</h5>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="form-label">ລຸ້ນເນື້ອ x10</h5>
+                                <h5 class="form-label">1.998.000 ກີບ</h5>
+                            </div>
+
+
+                            <div class="card-footer text-center">
+                                <div class="d-flex justify-content-center links">
+                                    <h5 class="text-dark">ລວມທັງໝົດ: <span class="text-danger">1.998.000 ກີບ</span> </h5>
+                                </div><br>
+                                <div class="d-flex justify-content-center links">
+                                    <img src="./img/bcel.png" width="250px" alt="">
+                                </div>
+                                <h5 for="fileInput " class="mt-3">ເລືອກຮູບຫຼັກຖານການໂອນເງີນ:</h5>
+                                <input type="file" class="text-center" id="fileInput" >
+                                <div class="form-group text-center mt-3">
+                                <input type="submit" value="ຖັດໄປ" class="btn btn-warning">
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div> -->
             </div>
         </div>
 
