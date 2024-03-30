@@ -31,7 +31,7 @@
             </a>
         </div>
         <div class="register-btn">
-            <a href="../logout.php" class="btn" style="background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);"><span></span>&nbsp;ອອກຈາກລະບົບ</a>
+            <a href="../login.php" class="btn" style="background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);"><span></span>&nbsp;ອອກຈາກລະບົບ</a>
         </div>
         <nav class="navbar navbar-expand-sm justify-content-center sticky-bottom " data-bs-theme="dark" id="navbar">
             <ul class="navbar-nav">

@@ -1,11 +1,4 @@
-<?php
-// Start the session
-session_start();
 
-if (!isset($_SESSION['logged_in']) && $_SESSION['role'] !== "owner") {
-    header("Location: ../login.php");
-} 
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +17,7 @@ if (!isset($_SESSION['logged_in']) && $_SESSION['role'] !== "owner") {
             <div class="col-sm-3 bg-light rounded text-dark text-center p-3" style="margin: 0 auto; background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);height:75vh">
                 <div class="col" style="margin-top: 20px;">
                     <h3>ລາຍງານ</h3>
-                    <h5 class="news-title" data-report="report_user_violations.php">ລາຍງານການເຮັດຜິດກົດ</h5>
+                    <h5 class="news-title" data-report="report_request_user_list.php">ລາຍງານການເຮັດຜິດກົດ</h5>
                     <h5 class="news-title" data-report="report_all_member.php">ລາຍງານຈຳນວນສະມາຊິກ</a></h5>
                     <h5 class="news-title" data-report="report_rank_seller.php">ລາຍງານການຈັດອັນດັບຜູ້ຂາຍ</a></h5>
                     <h5 class="news-title" data-report="report_total_sales.php">ລາຍງານຍອດຂາຍ</a></h5>
@@ -81,10 +74,18 @@ if (!isset($_SESSION['logged_in']) && $_SESSION['role'] !== "owner") {
                         console.error('Error fetching the report:', error);
                     });
             }
-            loadReport("report_dashboard.php");
+            loadReport("report_request_user_list.php");
 
         });
-   
+    function showPendingTable() {
+        document.getElementById("pendingTable").style.display = "block";
+        document.getElementById("activeTable").style.display = "none";
+    }
+
+    function showActiveTable() {
+        document.getElementById("pendingTable").style.display = "none";
+        document.getElementById("activeTable").style.display = "block";
+    }
 </script>
 </body>
 

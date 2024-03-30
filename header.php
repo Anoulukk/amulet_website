@@ -32,8 +32,8 @@
             </a>
         </div>
         <div class="register-btn">
-            <a href="register.php" class="btn btn-warning " style=""><span><img src="img/edit_FILL0_wght400_GRAD0_opsz24.png" alt=""></span>&nbsp;ລົງທະບຽນ</a>
-            <a href="login.php" class="btn btn-light "><span><img src="img/" alt=""></span>&nbsp;ເຂົ້າສູ່ລະບົບ</a>
+            <a href="login.php" class="btn btn-warning " style=""><span><img src="img/edit_FILL0_wght400_GRAD0_opsz24.png" alt=""></span>&nbsp;ເຂົ້າສູ່ລະບົບ</a>
+            <a href="my_acc.php" class="btn btn-light "><span><img src="img/" alt=""></span>&nbsp;ບັນຊີຂອງຂ້ອຍ</a>
         </div>
         <nav class="navbar navbar-expand-sm justify-content-center sticky-bottom " data-bs-theme="dark" id="navbar">
             <ul class="navbar-nav">
