@@ -1,3 +1,7 @@
+<?php
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+echo ($role);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,9 +36,17 @@
             </a>
         </div>
         <div class="register-btn">
-            <a href="login.php" class="btn btn-warning " style=""><span><img src="img/edit_FILL0_wght400_GRAD0_opsz24.png" alt=""></span>&nbsp;ເຂົ້າສູ່ລະບົບ</a>
-            <a href="my_acc.php" class="btn btn-light "><span><img src="img/" alt=""></span>&nbsp;ບັນຊີຂອງຂ້ອຍ</a>
+            <?php if ($role === 'buyer'): ?>
+                
+                <a href="my_acc.php" class="btn btn-light "><span><img src="img/" alt=""></span>&nbsp;ບັນຊີຂອງຂ້ອຍ</a>
+                <?php else: ?>
+                    <a href="login.php" class="btn btn-warning " style=""><span><img src="img/edit_FILL0_wght400_GRAD0_opsz24.png" alt=""></span>&nbsp;ເຂົ້າສູ່ລະບົບ</a>
+                <a href="my_acc.php" class="btn btn-light "><span><img src="img/" alt=""></span>&nbsp;ບັນຊີຂອງຂ້ອຍ</a>
+                    
+                    <?php endif; ?>
+
         </div>
+
         <nav class="navbar navbar-expand-sm justify-content-center sticky-bottom " data-bs-theme="dark" id="navbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -52,9 +64,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="history.php">ປະຫວັດພຣະເຄື່ອງ</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.php">ຕິດຕໍ່ພວກເຮົາ</a>
-                </li>
+                <?php if ($role === 'buyer'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user_activity.php">ບັນທຶກກິດຈະກຳ</a>
+                    </li>
+                <?php else: ?>
+                    <!-- Hide this navigation item if the role is not 'buyer' -->
+                <?php endif; ?>
+                <?php if ($role !== 'buyer'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.php">ຕິດຕໍ່ພວກເຮົາ</a>
+                    </li>
+                <?php else: ?>
+                    <!-- Hide this navigation item if the role is 'buyer' -->
+                <?php endif; ?>
             </ul>
         </nav>
     </div>
@@ -108,7 +131,7 @@
                 navItems[3].classList.add('active');
             } else if (fileName == 'history.php') {
                 navItems[4].classList.add('active');
-            } else if (fileName == 'contact.php') {
+            } else if (fileName == 'contact.php' || fileName == 'user_activity.php') {
                 navItems[5].classList.add('active');
             }
         }

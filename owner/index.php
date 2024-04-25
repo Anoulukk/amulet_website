@@ -1,9 +1,9 @@
 <?php
 // Start the session
 session_start();
-
-if (!isset($_SESSION['logged_in']) && $_SESSION['role'] !== "owner") {
-    header("Location: ../login.php");
+echo( $_SESSION['role']);
+if ($_SESSION['role'] !== "owner") {
+    header("Location: ../logout.php");
 } 
 ?>
 <!DOCTYPE html>

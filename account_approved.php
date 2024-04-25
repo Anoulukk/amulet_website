@@ -23,7 +23,7 @@
                             
                           
                             <div class="form-group text-center mt-3">
-                                <a href="index.php" class="btn btn-warning">ກັບຄືນ</a>
+                                <a href="logout.php" class="btn btn-warning">ອອກຈາກລະບົບ</a>
                             </div>
                     </div>
                   

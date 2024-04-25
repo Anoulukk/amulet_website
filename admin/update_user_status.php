@@ -5,9 +5,11 @@ include('../config.php');
 if (isset($_POST['user_id'])) {
     $userId = $_POST['user_id'];
     $adminId = $_POST['admin_id'];
-
+    $role = $_POST['role'];
+    echo($role);
     // Update user table to set active to true
-    $updateUserSql = "UPDATE user SET active = 'true', admin_id = '$adminId' WHERE user_id = '$userId'";
+    $updateUserSql = "UPDATE user SET active = 'true', admin_id = '$adminId', status = '$role' WHERE user_id = '$userId'";
+
 
     $updateUserResult = mysqli_query($conn, $updateUserSql);
 
@@ -19,7 +21,7 @@ if (isset($_POST['user_id'])) {
     if ($updateUserResult && $updateRegisterResult) {
         // Close the database connection
         mysqli_close($conn);
-        
+
         // Redirect back to the page where the form was submitted from
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
@@ -32,3 +34,6 @@ if (isset($_POST['user_id'])) {
     echo "User ID not set.";
 }
 ?>
+//update seller status
+$update_sql = "UPDATE `user` SET status = 'seller' WHERE user_id = '$userId'";
+mysqli_query($conn, $update_sql);

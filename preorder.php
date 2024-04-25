@@ -1,3 +1,9 @@
+<?php
+// Start the session
+include("config.php");
+session_start();
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,9 +72,300 @@
         <button type="button" class="btn btn-light p-1 me-3">ອົງບູຊາ ຂະໜາດ 9 ນິ້ວ</button>
         <button type="button" class="btn btn-light p-1 me-3">ອົງບູຊາ ຂະໜາດ 5 ນິ້ວ</button>
       </div>
+      <?php if ($role === "user") : ?>
         <a href="login.php" class="btn btn-danger mt-3">ເຂົ້າສູ່ລະບົບເພື່ອຈອງ</a>
+      </div>
+      </div>
+        
+      <?php else : ?>
+        <h3 class="mt-3"></h3>
+      <div class="d-flex mb-3">
+
+        <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
+          <h4>1. ເນື້ອທອງຄຳ</h4>
+          <div class="d-flex justify-content-center">
+
+            <h5 class="p-1 bg-light rounded">ລາຄາ: <span>49,999,000 </span>ກີບ</h5>
+            <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span>99 </span>ຫຼຽນ</h5>
+          </div><br>
+
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+        </div>
+        <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
+          <h4>2. ເນື້ອເງິນໜ້າກາກຄຳ</h4>
+          <div class="d-flex justify-content-center">
+
+            <h5 class="p-1 bg-light rounded">ລາຄາ: <span>29,999,000 </span>ກີບ</h5>
+            <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span>99 </span>ຫຼຽນ</h5>
+          </div><br>
+
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex">
+
+        <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
+          <h4>1. ເນື້ອທອງຄຳ</h4>
+          <div class="d-flex justify-content-center">
+
+            <h5 class="p-1 bg-light rounded">ລາຄາ: <span>49,999,000 </span>ກີບ</h5>
+            <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span>99 </span>ຫຼຽນ</h5>
+          </div><br>
+
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+        </div>
+        <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
+          <h4>2. ເນື້ອເງິນໜ້າກາກຄຳ</h4>
+          <div class="d-flex justify-content-center">
+
+            <h5 class="p-1 bg-light rounded">ລາຄາ: <span>29,999,000 </span>ກີບ</h5>
+            <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span>99 </span>ຫຼຽນ</h5>
+          </div><br>
+
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+            <div class="col text-end">
+              <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+            </div>
+            <div class="col-6 text-start">
+              <h6>1.1 ເນື້ອທອງຄຳ ລົງຢາຮ້ອນ ໜ້າ-ຫຼັງ ຝັງເພັດ</h6>
+              <h5>ສ້າງທັງໝົດ 5 ຫຼຽນ</h5>
+            </div>
+            <div class="col text-center">
+              <a href="" class="btn btn-light border">ເລືອກ</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+
+  <?php endif; ?>
 </body><br>
 <?php include('footer.php') ?>
 

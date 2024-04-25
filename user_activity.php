@@ -1,3 +1,9 @@
+<?php
+// Start the session
+include("config.php");
+session_start();
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +18,7 @@
 
 <body>
   <?php include('header.php'); ?>
-  <div class="container">
+  <div class="container mt-3">
     <div class="row">
 
       <div class="col-sm-12 ">
@@ -42,6 +48,5 @@
     </div>
   </div>
 </body>
-<?php include('footer.php') ?>
 
 </html>

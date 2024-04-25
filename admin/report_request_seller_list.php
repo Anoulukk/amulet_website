@@ -25,7 +25,6 @@
                         <th scope="col">ຊື່ຜູ້ໃຊ້</th>
                         <th scope="col">ເບີໂທຜູ້ໃຊ້</th>
                         <th scope="col">ວັນທີລົງທະບຽນ</th>
-                        <th scope="col">ບົດບາດ</th>
                         <th scope="col">ສະຖານະ</th>
                         <th scope="col">ປັບສະຖານະ</th>
                     </tr>
@@ -34,7 +33,7 @@
                     <?php
                     session_start();
                     $adminId = $_SESSION['admin_id'];
-                    $sql = "SELECT r.register_id, r.user_id, r.register_date, r.role, r.status, u.username, u.lastname, u.telephone
+                    $sql = "SELECT r.register_id, r.user_id, r.register_date, r.status, u.username, u.lastname, u.telephone
                         FROM register r
                         INNER JOIN user u ON r.user_id = u.user_id
                         WHERE r.status = 'Pending'";
@@ -49,13 +48,11 @@
                             echo "<td>" . $row["username"] . " " . $row["lastname"] . "</td>";
                             echo "<td>" . $row["telephone"] . "</td>";
                             echo "<td>" . $row["register_date"] . "</td>";
-                            echo "<td>" . $row["role"] . "</td>";
                             echo "<td>" . $row["status"] . "</td>";
                             echo "<td>
                                 <form action='update_user_status.php' method='post'>
                                     <input type='hidden' name='user_id' value='" . $row["user_id"] . "'>
                                     <input type='hidden' name='admin_id' value='$adminId'>
-                                    <input type='hidden' name='role' value='" . $row["role"] . "'>
                                     <button type='submit' class='btn btn-sm btn-warning'>Approve</button>
                                 </form>
                               </td>";

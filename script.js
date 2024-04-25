@@ -1,7 +1,7 @@
 let currentBid = 200;
 let minimumBidAmount = 100; 
-let countdownMinutes = 0;
-let countdownSeconds = 0;
+let countdownMinutes = 1000;
+let countdownSeconds = 10;
 let countdownInterval;
 let winningUserName = "";
 

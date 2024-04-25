@@ -188,13 +188,13 @@
                     if (mysqli_query($conn, $sql)) {
                         $firstname = $lastname = $telephone = $password = $status = $admin_id = '';
                         $user_id = mysqli_insert_id($conn);
-                        $addToRegister_sql = "INSERT INTO `register` (user_id, register_date, status) 
-                                                VALUES ('$user_id',NOW(),'pending')";
+                        $addToRegister_sql = "INSERT INTO `register` (user_id, register_date, role, status) 
+                                                VALUES ('$user_id',NOW(),'buyer' ,'pending')";
                         mysqli_query($conn, $addToRegister_sql);
                         echo "New record added. User ID: " . $user_id;
                         echo "<script>
                                         console.log('ລົງທະບຽນຜູ້ໃຊ້ສຳເລັດ.');
-                                        window.location.href = 'index.php';
+                                        window.location.href = 'login.php';
                                       </script>";
                         exit();
                     } else {
@@ -238,14 +238,21 @@
                                 $userId = $row['user_id'];
                                 $sql = "INSERT INTO `seller` (user_id, store_name, id_card, description, seller_address) 
                                                     VALUES ('$userId', '$storeName', '$idCard', '$description', '$sellerAddress')";
-                                $update_sql = "UPDATE `user` SET status = 'seller' WHERE user_id = '$userId'";
-                                mysqli_query($conn, $update_sql);
+              
 
                                 if (mysqli_query($conn, $sql)) {
                                     $storeName = $idCard = $description = $sellerAddress = '';
+                                    $addToRegister_sql = "INSERT INTO `register` (user_id, register_date, role, status) 
+                                                            VALUES ('$userId',NOW() ,'seller' ,'pending')";
+                                    mysqli_query($conn, $addToRegister_sql);
                                     echo "<script>
-                                                        console.log('User registered successfully.');
-                                              </script>";
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'ສຳເລັດ',
+                                        text: 'ລົງທະບຽນເປີດຮ້ານຄ້າສຳເລັດ',
+                                    });
+                                </script>";
+                                   
                                 } else {
                                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                                 }

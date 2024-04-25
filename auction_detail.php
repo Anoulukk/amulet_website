@@ -1,3 +1,10 @@
+<?php
+// Start the session
+include("config.php");
+session_start();
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+echo ($role);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,18 +45,20 @@
                         <p>ເວລາທີ່ເຫຼືອ: <span id="countdown"></span></p>
                         <p>ສະຖານະ: <span id="status">ກຳລັງປະມູນ</span></p>
                     </div>
-                    <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a>
-
-                    <div class="bid-section" hidden>
-                        <form id="bid-form" class="form-group">
-                            <div class="input-group">
-                                <input type="number" id="bid-amount" class="form-control" placeholder="ປ້ອນລາຄາ" step="100">
-                                <button type="submit" id="place-bid" class="btn btn-dark">ສະເໜີລາຄາ</button>
-                            </div>
-                        </form>
-                    </div>
+                    <?php if ($role === 'user') : ?>
+                        <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a>
+                    <?php else : ?>
+                        <div class="bid-section">
+                            <form id="bid-form" class="form-group">
+                                <div class="input-group">
+                                    <input type="number" id="bid-amount" class="form-control" placeholder="ປ້ອນລາຄາ" step="100">
+                                    <button type="submit" id="place-bid" class="btn btn-dark">ສະເໜີລາຄາ</button>
+                                </div>
+                            </form>
+                        </div>
+                    <?php endif; ?>
                     <div class="details">
-                    <br>
+                        <br>
                         <h5>ລາຍລະອຽດ</h5>
                         <p id="Auction-detail">ພຣະກິ່ງຍອດທຸງໄຊ : ສ້າງທີ່ວັດໂພນໄຊ ປຸກເສກທີ່ວັດຈະເລີນໄຊ<br>
                             ສ້າງໂດຍ : ທີມງານໄວລຸ້ນສະສົມພຣະເຄື່ອງ<br>
