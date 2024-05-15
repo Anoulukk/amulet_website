@@ -3,8 +3,51 @@
 include("config.php");
 session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
-echo ($role);
+
+if (isset($_GET['auction_id'])) {
+    // Retrieve auction_id from the URL parameter
+    $auction_id = $_GET['auction_id'];
+
+    // SQL query to fetch data from the amuletauction table
+    $sql = "SELECT * FROM amuletauction WHERE auction_id = $auction_id";
+    $result = $conn->query($sql);
+
+    // Check if the query was successful
+    if ($result && $result->num_rows > 0) {
+        // Fetch the data from the result set
+        $row = $result->fetch_assoc();
+
+        // Assign fetched data to variables
+        $auction_title = $row['amulet_auction_name'];
+        $start_bid = $row['start_bid'];
+        $minimum_bid = $row['minimum_bid'];
+        $countdown = $row['countdown_days'];
+        $status = $row['auction_status'];
+        $auction_detail = $row['amulet_auction_detail'];
+        $large_image_path = $row['amulet_auction_img'];
+
+        // Fetch images data from another table
+        // Assuming you have a table named 'auction_images' with columns 'img_path' and 'alt_text'
+        $images = array();
+        $images_sql = "SELECT amulet_auction_img FROM amuletauction WHERE auction_id = $auction_id";
+        $images_result = $conn->query($images_sql);
+        if ($images_result && $images_result->num_rows > 0) {
+            while ($img_row = $images_result->fetch_assoc()) {
+                $images[] = $img_row;
+            }
+        }
+    } else {
+        // No data found for the provided auction_id, redirect to homepage or display an error message
+        header("Location: index.php");
+        exit();
+    }
+} else {
+    // Redirect to homepage or display error message if auction_id parameter is not set
+    header("Location: index.php");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +56,6 @@ echo ($role);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amulet Auction</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 
 <body>
@@ -23,29 +65,28 @@ echo ($role);
         <section class="auction-item">
             <div class="row">
                 <div class="col-sm-2"> <!-- Small Image Column -->
-                    <img class="img-small" width="80px" data-src="./img/amulet.jpg" src="./img/amulet.jpg" alt="Small Image 1">
-                    <img class="img-small" width="80px" data-src="./img/pha.jpg" src="./img/pha.jpg" alt="Small Image 2">
-                    <img class="img-small" width="80px" data-src="./img/saisana.jpg" src="./img/saisana.jpg" alt="Small Image 3">
-                    <img class="img-small" width="80px" data-src="./img/amulet.jpg" src="./img/amulet.jpg" alt="Small Image 4">
-                    <img class="img-small" width="80px" data-src="./img/saisana.jpg" src="./img/saisana.jpg" alt="Small Image 4">
+                    <!-- Dynamically set the src attribute of img elements -->
+                    <?php foreach ($images as $image) : ?>
+                        <img class="img-small" width="80px" data-src="./seller/<?php echo $image['amulet_auction_img']; ?>" src="./seller/<?php echo $image['amulet_auction_img']; ?>" alt="<?php echo $image['amulet_auction_img']; ?>">
+                    <?php endforeach; ?>
                 </div>
                 <div class="col-md-6"> <!-- Large Image Column -->
-                    <img src="./img/saisana.jpg" alt="Amulet Image" width="600px" class="img-fluid" id="largeImage">
+                    <!-- Dynamically set the src attribute of the large image -->
+                    <img src="./seller/<?php echo $large_image_path; ?>" alt="Amulet Image" width="600px" class="img-fluid" id="largeImage">
                 </div>
                 <div class="col-md-4">
-                    <h3 class="auction-description"><b>ຫຼຽນໄຊຊະນະ ມີໂຊກ</b></h3>
+                    <h3 class="auction-description"><b><?php echo $auction_title; ?></b></h3>
                     <hr>
                     <div class="auction-info">
-                        <p class="current-bid">ລາຄາປັດຈຸບັນ: $<span id="current-bid"></span></p>
+                        <p class="current-bid">ລາຄາປັດຈຸບັນ: $<span id="current-bid"><?php echo $start_bid; ?></span></p>
                         <div class="bid-divider"></div>
-                        <p class="minimum-bid">&nbsp;&nbsp;&nbsp;ປະມູນຂັ້ນຕ່ຳ: <span id="minimum-bid"></span></p>
+                        <p class="minimum-bid">&nbsp;&nbsp;&nbsp;ປະມູນຂັ້ນຕ່ຳ: <span id="minimum-bid"><?php echo $minimum_bid; ?></span></p>
                     </div>
                     <div class="auction-status-detail">
-
-                        <p>ເວລາທີ່ເຫຼືອ: <span id="countdown"></span></p>
-                        <p>ສະຖານະ: <span id="status">ກຳລັງປະມູນ</span></p>
+                        <p>ເວລາທີ່ເຫຼືອ: <span id="countdown"><?php echo $countdown; ?></span></p>
+                        <p>ສະຖານະ: <span id="status"><?php echo $status; ?></span></p>
                     </div>
-                    <?php if ($role === 'user') : ?>
+                    <?php if ($role == 'user' || $role == null) : ?>
                         <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a>
                     <?php else : ?>
                         <div class="bid-section">
@@ -60,29 +101,12 @@ echo ($role);
                     <div class="details">
                         <br>
                         <h5>ລາຍລະອຽດ</h5>
-                        <p id="Auction-detail">ພຣະກິ່ງຍອດທຸງໄຊ : ສ້າງທີ່ວັດໂພນໄຊ ປຸກເສກທີ່ວັດຈະເລີນໄຊ<br>
-                            ສ້າງໂດຍ : ທີມງານໄວລຸ້ນສະສົມພຣະເຄື່ອງ<br>
-                            ພຣະກິ່ງສ້າງເມື່ອວັນທີ່ 12 /8/2023 <br>
-                            ມີຫຼາຍພຣະອາຈານ ແລະ ເກຈິເຂົ້າຮ່ວມຄື : <br>
-                            ພຣະຄູ ໜູແອ່ງ ຈັນທະປັນໂຍ (ເປັນພຣະປະທານເປີດງານ) <br>
-                            ພຣະຄູ ນ່ອງ ວັດຈະເລີນໄຊ <br>
-                            ມີຫຼາຍພຣະອາຈານ ແລະ ເກຈິເຂົ້າຮ່ວມຄື : <br>
-                            ພຣະຄູ ໜູແອ່ງ ຈັນທະປັນໂຍ (ເປັນພຣະປະທານເປີດງານ) <br>
-                            ພຣະຄູ ນ່ອງ ວັດຈະເລີນໄຊ <br>
-                            ຍາຄຣູ ສົດ ວັດໜອງໄຮນ້ອຍ <br>
-                            ຍາຄຣູ ແບ້ ວັດໂຄດົມສີວຽງໄຊ <br>
-                            ຍາຄຣູ ກິ ວັດປ່າທ່າງ່ອນ <br>
-                            ຄູບາ ແດງ ວັດໄຊຊົມຊື່ນ <br>
-                            ຍາຄຣູ ແອ ວັດພູເຂົາຄວາຍ ແລະ ພຣະສົງອື່ນໆທີ່ເຂົ້າຮ່ວມພິທີໃນຄັ້ງນີ້ <br>
-                        </p>
-
+                        <p id="Auction-detail"><?php echo $auction_detail; ?></p>
                     </div>
                 </div>
-
             </div>
         </section>
         <div class="bid-history mt-4">
-
             <h3 class="mb-3 auction-end-title" style="display: none">ການປະມູນຈົບແລ້ວ</h3>
             <table class="table table-striped">
                 <thead>
@@ -100,6 +124,7 @@ echo ($role);
             <p class="winning-user-text" id="winning-user-text" style="display: none;">ກົດເພື່ອເບິ່ງຊື່ຜູ້ຊະນະປະມູນ</p>
         </div>
     </main>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>

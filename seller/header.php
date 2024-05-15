@@ -1,3 +1,21 @@
+<?php
+// Start the session
+include('../config.php');
+session_start();
+echo($_SESSION['role']);
+$userId = $_SESSION['user_id'];
+
+    // Query to retrieve seller ID based on user ID
+    $sellerIdQuery = "SELECT seller_id FROM seller WHERE user_id = '$userId'";
+
+    $sellerIdResult = mysqli_query($conn, $sellerIdQuery);
+        $row = mysqli_fetch_assoc($sellerIdResult);
+        echo($row['seller_id']);
+
+if ($_SESSION['role'] !== "seller") {
+    header("Location: ../logout.php");
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +49,7 @@
             </a>
         </div>
         <div class="register-btn">
-            <a href="../login.php" class="btn" style="background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);"><span></span>&nbsp;ອອກຈາກລະບົບ</a>
+            <a href="../logout.php" class="btn" style="background-image: linear-gradient(to bottom right, #fcc200, #f7e98e);"><span></span>&nbsp;ອອກຈາກລະບົບ</a>
         </div>
         <nav class="navbar navbar-expand-sm justify-content-center sticky-bottom " data-bs-theme="dark" id="navbar">
             <ul class="navbar-nav">

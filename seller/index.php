@@ -48,6 +48,16 @@
     // No amulets found
     $amulets = array(); // Initialize an empty array if no results
   }
+    // Fetch data for amulets being auctioned
+    $sql_auction = "SELECT * FROM amuletauction";
+    $result_auction = mysqli_query($conn, $sql_auction);
+    $amulets_auction = array();
+    if (mysqli_num_rows($result_auction) > 0) {
+      while ($row = mysqli_fetch_assoc($result_auction)) {
+        $amulets_auction[] = $row;
+      }
+    }
+  
 
   if (mysqli_num_rows($result2) > 0) {
     while ($row = mysqli_fetch_assoc($result2)) {
@@ -87,7 +97,7 @@
     if ($counter < 6) {
       echo '<div class="col-2 text-center store-box">';
       echo '<span>';
-      echo '<img class="top-amulet-store-img" src="../img/' . $amulet['amulet_sell_img'] . '" alt="">';
+      echo '<img class="top-amulet-store-img" src="./' . $amulet['amulet_sell_img'] . '" alt="">';
       echo '</span>';
       echo '<div class="store-details">';
       echo '<h6>' . $amulet['amulet_sell_name'] . '</h6>';
@@ -105,10 +115,10 @@
   <?php
   // Display the remaining amulets in the second row
   foreach ($amulets as $amulet) {
-    if ($counter >= 6) {
+    // if ($counter >= 6) {
       echo '<div class="col-2 text-center store-box">';
       echo '<span>';
-      echo '<img class="top-amulet-store-img" src="../img/' . $amulet['amulet_sell_img'] . '" alt="">';
+      echo '<img class="top-amulet-store-img" src="./' . $amulet['amulet_sell_img'] . '" alt="">';
       echo '</span>';
       echo '<div class="store-details">';
       echo '<h6>' . $amulet['amulet_sell_name'] . '</h6>';
@@ -127,10 +137,42 @@
 
       echo '</div>';
       echo '</div>';
-    }
+    // }
     $counter++; // Increment the counter
   }
   ?>
+
+</div>
+<div class="row">
+  <h4 class="">ລາຍການພຣະເຄື່ອງທີ່ເປີດປະມູນ</h4>
+  <?php foreach ($amulets_auction as $amulet): ?>
+    <div class="col-2 text-center store-box">
+      <span>
+        <img class="top-amulet-store-img" src="<?php echo $amulet['amulet_auction_img']; ?>" alt="">
+      </span>
+      <div class="store-details">
+        <h6><?php echo $amulet['amulet_auction_name']; ?></h6>
+        <?php
+        $statusClass = '';
+        switch ($amulet['auction_status']) {
+          case 'ກຳລັງປະມູນ':
+            $statusClass = 'text-success';
+            break;
+          case 'ປິດປະມູນແລ້ວ':
+            $statusClass = 'text-danger';
+            break;
+          default:
+            $statusClass = '';
+            break;
+        }
+        echo '<p class="' . $statusClass . '">' . $amulet['auction_status'] . '</p>';
+        ?>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
+
+
 
 </div>
 

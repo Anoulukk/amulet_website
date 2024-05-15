@@ -72,7 +72,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
         <button type="button" class="btn btn-light p-1 me-3">ອົງບູຊາ ຂະໜາດ 9 ນິ້ວ</button>
         <button type="button" class="btn btn-light p-1 me-3">ອົງບູຊາ ຂະໜາດ 5 ນິ້ວ</button>
       </div>
-      <?php if ($role === "user") : ?>
+      <?php if ($role === "user" || $role == null) : ?>
         <a href="login.php" class="btn btn-danger mt-3">ເຂົ້າສູ່ລະບົບເພື່ອຈອງ</a>
       </div>
       </div>

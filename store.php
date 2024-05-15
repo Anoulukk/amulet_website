@@ -3,6 +3,13 @@
 include("config.php");
 session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+
+
+
+// SQL query to fetch data from the seller table
+$sql = "SELECT * FROM seller";
+$result = $conn->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,205 +41,33 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
             </div>
 
             <div class="col-12 box">
-                <div class="col-2 text-center store-box">
-                    <a href="store_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 text-center store-box">
-                    <a href="amulet_detail.php">
-                        <img class="market-img" src="./img/store.jpeg" alt="">
-                    </a>
-                    <div class="store-details">
-                        <h6>ຮ້ານມອດຊີ້ພະເຄື່ອງ</h6>
-                        <div class="rating" data-store-id="1"> <!-- Add a data attribute to store the store ID -->
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                    </div>
-                </div>
-
-
-
+            <?php
+                // Check if there are rows returned from the query
+                if ($result->num_rows > 0) {
+                    // Loop through each row of the result set
+                    while($row = $result->fetch_assoc()) {
+                        echo '<div class="col-2 text-center store-box">';
+                        echo '<a href="store_detail.php">';
+                        echo '<img class="market-img" src="./img/store.jpeg" alt="">';
+                        echo '</a>';
+                        echo '<div class="store-details">';
+                        echo '<h6>' . $row["store_name"] . '</h6>';
+                        echo '<div class="rating" data-store-id="' . $row["seller_id"] . '">';
+                        for ($i = 1; $i <= 5; $i++) {
+                            echo '<span class="star" data-rating="' . $i . '">★</span>';
+                        }
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo "<p>No sellers found</p>";
+                }
+                ?>
             </div>
-            <div class="col">
-            </div>
+            <div class="col"></div>
         </div>
-
     </div>
-
-
-
-
-
 </body><br>
 <?php include('footer.php') ?>
 

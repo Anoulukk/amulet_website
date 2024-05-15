@@ -87,7 +87,9 @@
                 $user_data = mysqli_fetch_assoc($user_result);
                 if ($user_data['status'] == 'seller') {
                     // User is a seller
+                    echo( $user_data['seller_id']);
                     $_SESSION['role'] = 'seller';
+                    $_SESSION['user_id'] = $user_data['user_id'];
                     $_SESSION['logged_in'] = true;
                     $role = 'seller';
                 } elseif ($user_data['active'] == 'true') {

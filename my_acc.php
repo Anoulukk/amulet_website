@@ -3,7 +3,7 @@
 include("config.php");
 session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
-echo($role);
+// echo($role);
 // Check if the user is logged in
 if ($role === "user" || $role === "buyer") {
     // Retrieve the username from the session

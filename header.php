@@ -1,6 +1,5 @@
 <?php
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
-echo ($role);
 ?>
 <!DOCTYPE html>
 <html lang="en">

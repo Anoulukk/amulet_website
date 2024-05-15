@@ -281,6 +281,7 @@ body {
     border-color: rgb(255, 235, 123); /* Change the border color on hover */
     box-shadow: 0 0 15px rgb(255, 224, 45); /* Add a box shadow to create a glowing effect on hover */
 }
+
 .market-img:hover {
     border-color: gold; /* Change the border color on hover */
     box-shadow: 0 0 15px orange; /* Add a box shadow to create a glowing effect on hover */

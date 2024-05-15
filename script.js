@@ -1,189 +1,138 @@
-let currentBid = 200;
-let minimumBidAmount = 100; 
-let countdownMinutes = 1000;
-let countdownSeconds = 10;
-let countdownInterval;
-let winningUserName = "";
+function showErrorMessage(message) {
+  Swal.fire({
+    title: "ຜິດພາດ",
+    text: message,
+    icon: "error",
+    confirmButtonText: "OK",
+  });
+}
 
-// Get references to HTML elements
-const bidAmountInput = document.getElementById("bid-amount");
-const currentBidDisplay = document.getElementById("current-bid");
-const minimumBidDisplay = document.getElementById("minimum-bid");
-const bidList = document.getElementById("bid-list");
-const placeBidButton = document.getElementById("place-bid");
-const countdownDisplay = document.getElementById("countdown");
-const winningUserText = document.getElementById("winning-user-text");
-const auctionEndTitle = document.querySelector(".auction-end-title");
-const popup = document.getElementById("popup");
-const largeImage = document.getElementById("largeImage");
-const smallImages = document.querySelectorAll(".img-small");
-const finalBidDisplay = document.getElementById("final-bid");
-const AuctionStatus = document.getElementById("status");
-const market_img = document.querySelectorAll(".market-img");
-// Add a submit event listener to the form
-const bidButton = document.getElementById("bid-form");
-bidButton.addEventListener("submit", handleFormSubmit);
+function disableInputAndButton() {
+  $("#bid-amount, #place-bid").prop("disabled", true);
+}
 
-currentBidDisplay.textContent = currentBid;
-minimumBidDisplay.textContent = `$${minimumBidAmount}`;
-// Add click event listeners to the small images
-smallImages.forEach((smallImage) => {
-    smallImage.addEventListener("click", () => {
-        const newImageSrc = smallImage.getAttribute("data-src");
-        // Set the large image source to the new image
-        largeImage.src = newImageSrc;
-    });
-});
+function showWinningUserPopup() {
+  Swal.fire({
+    title: "ຂໍສະແດງຄວາມຍິນດີ",
+    text: `${winningUserName} ແມ່ນຜູ້ຊະນະປະມູນດ້ວຍລາຄາ ${currentBid} ກີບ`,
+    confirmButtonText: "OK",
+  });
+}
 
-function updateCountdown() {
+function showWinningUserText() {
+  $("#status").text("ປິດປະມູນ").css("color", "red");
+  $("#winning-user-text, .auction-end-title").css("display", "block");
+}
+
+function handleTimeUp() {
+  clearInterval(countdownInterval);
+  disableInputAndButton();
+  showWinningUserText();
+  $("#winning-user-text").on("click", showWinningUserPopup);
+}
+
+$(document).ready(function () {
+    const bidAmountInput = $("#bid-amount");
+    const currentBidDisplay = $("#current-bid");
+    const minimumBidDisplay = $("#minimum-bid");
+    const bidList = $("#bid-list");
+    const placeBidButton = $("#place-bid");
+    const countdownDisplay = $("#countdown");
+    const winningUserText = $("#winning-user-text");
+    const auctionEndTitle = $(".auction-end-title");
+    const popup = $("#popup");
+    const largeImage = $("#largeImage");
+    const smallImages = $(".img-small");
+    const finalBidDisplay = $("#final-bid");
+    const AuctionStatus = $("#status");
+    const market_img = $(".market-img");
+
+    // Set initial values from HTML elements
+    currentBidDisplay.text($("#current-bid").text());
+    minimumBidDisplay.text($("#minimum-bid").text());
+  var countdownText = $("#countdown").text();
+console.log($("#current-bid").val());
+  // Extract the number of days from the countdown text
+  var days = parseInt(countdownText);
+
+  // Convert days to minutes (assuming 1 day = 24 hours = 1440 minutes)
+  var countdownMinutes = days * 1440;
+
+  // Start the countdown after setting up the countdown minutes
+  startCountdown();
+  function updateCountdown() {
     let days = Math.floor(countdownMinutes / (60 * 24));
     let hours = Math.floor((countdownMinutes % (60 * 24)) / 60);
     let minutes = countdownMinutes % 60;
     let seconds = countdownSeconds;
 
     if (days > 0) {
-        countdownDisplay.textContent = `${days} ວັນ`;
+      countdownDisplay.text(`${days} ວັນ`);
+    //   console.log(countdownDisplay.text());
     } else {
-        countdownDisplay.textContent = `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      countdownDisplay.text(`${hours}:${minutes
+        .toString()
+        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`);
     }
-
-    if (countdownMinutes < 60) {
-        countdownDisplay.style.color = "red";
-    } else {
-        countdownDisplay.style.color = "";
-    }
-}
-
-
-function showErrorMessage(message) {
-    Swal.fire({
-        title: 'ຜິດພາດ',
-        text: message,
-        icon: 'error',
-        confirmButtonText: 'OK'
-    });
-}
-function disableInputAndButton() {
-    bidAmountInput.disabled = true;
-    placeBidButton.disabled = true;
-}
-// Function to show the popup with the winning user's name
-function showWinningUserPopup() {
-    Swal.fire({
-        title: 'ຂໍສະແດງຄວາມຍິນດີ',
-        text: `${winningUserName} ແມ່ນຜູ້ຊະນະປະມູນດ້ວຍລາຄາ ${currentBid} ກີບ`,
-        confirmButtonText: 'OK'
-    });
-}
-
-// Function to show the winning user text
-function showWinningUserText() {
-    AuctionStatus.innerText = "ປິດປະມູນ";
-    AuctionStatus.style.color = "red";
-    // winningUserText.style.color = "#e1ad21";
-    winningUserText.style.display = "block"; // Show the text
-    auctionEndTitle.style.display = "block";
-
-}
-
-// Function to handle the time-up event
-function handleTimeUp() {
-    clearInterval(countdownInterval); // Stop the countdown timer
-
-    // Disable input and button after the time is up
-    disableInputAndButton();
-
-    // Show the winning user text
-    showWinningUserText();
-
-    // Add an event listener to the text to show the SweetAlert2 popup
-    winningUserText.addEventListener("click", function () {
-        showWinningUserPopup();
-    });
-}
-
-// Modify the startCountdown function to call handleTimeUp when the time is up
-function startCountdown() {
+  }
+  var countdownSeconds = 0; // Initialize countdownSeconds here
+  function startCountdown() {
     countdownInterval = setInterval(function () {
-        if (countdownMinutes === 0 && countdownSeconds === 0) {
-            handleTimeUp();
-        } else if (countdownSeconds === 0) {
-            countdownMinutes--;
-            countdownSeconds = 59;
-        } else {
-            countdownSeconds--;
-        }
-        updateCountdown();
-    }, 1000); // Use 1000 milliseconds (1 second) as the interval
-}
+      if (countdownMinutes === 0 && countdownSeconds === 0) {
+        handleTimeUp();
+      } else if (countdownSeconds === 0) {
+        countdownMinutes--;
+        countdownSeconds = 59;
+      } else {
+        countdownSeconds--;
+      }
+      updateCountdown();
+    }, 1000);
+  }
+  console.log(currentBidDisplay.val());
 
-
-startCountdown(); 
-
-
-// Function to handle form submission
-function handleFormSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Get the bid amount and round it to the nearest multiple of 100
-    const inputBidAmount = parseFloat(bidAmountInput.value);
-    
-    if (!isNaN(inputBidAmount)) { // Check if the input is a valid number
-        const bidAmount = Math.round(inputBidAmount / 100) * 100;
-
-    if (bidAmount > currentBid) {
-        addBidToHistoryTable(bidAmount, "John Doe");
+  $("#bid-form").on("submit", function (event) {
+    event.preventDefault();
+    const inputBidAmount = parseFloat($("#bid-amount").val());
+    console.log(inputBidAmount);
+      const bidAmount = inputBidAmount;
+      console.log(bidAmount);
+      if (bidAmount > currentBidDisplay.val()) {
+        addBidToHistoryTable(bidAmount, "moss tit hee");
         currentBid = bidAmount;
-        currentBidDisplay.textContent = currentBid;
-        // Clear the bid input field
-    } else {
+        currentBidDisplay.text(currentBid);
+      } else {
         showErrorMessage("ລາຄາທີ່ສະເໜີຕ້ອງສູງກວ່າລາຄາປັດຈຸບັນ");
-    }
-    }
-}
-let number = 1;
+      }
+  });
 
-function getCurrentDateTime() {
+  let number = 1;
+
+  function getCurrentDateTime() {
     const now = new Date();
     const year = now.getFullYear();
-    const month = now.getMonth() + 1; // Months are 0-indexed, so add 1.
+    const month = now.getMonth() + 1;
     const day = now.getDate();
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const amOrPm = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12; // Convert to 12-hour format.
-    const formattedMinutes = minutes.toString().padStart(2, '0'); // Ensure two-digit minutes;
-
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes.toString().padStart(2, "0");
     return `${year}-${month}-${day} ${formattedHours}:${formattedMinutes} ${amOrPm}`;
-}
-function addBidToHistoryTable(bidAmount, bidderName) {
-    const bidHistoryTable = document.getElementById("bid-history-table");
-    const newRow = document.createElement("tr");
-    newRow.innerHTML = `
-        <td>${number}</td>
-        <td>${bidderName}</td>
-        <td>$${bidAmount}</td>
-        <td>${getCurrentDateTime()}</td>
-    `;
-    
-    bidHistoryTable.appendChild(newRow);
+  }
+
+  function addBidToHistoryTable(bidAmount, bidderName) {
+    const newRow = `
+            <tr>
+                <td>${number}</td>
+                <td>${bidderName}</td>
+                <td>$${bidAmount}</td>
+                <td>${getCurrentDateTime()}</td>
+            </tr>
+        `;
+    $("#bid-history-table").append(newRow);
     number++;
-    
     winningUserName = bidderName;
-    bidAmountInput.value = "";
-
-}
-
-// Example usage:
-// Add a new bid to the bid history table with bidder name, bid amount, and bid time
-addBidToHistoryTable(150, "John Doe");
-addBidToHistoryTable(200, "Alice Smith");
-
-
-
-$(document).ready(function(){
-
-
-    
+    $("#bid-amount").val("");
+  }
 });
-
