@@ -5,6 +5,31 @@ session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 echo ($role);
 
+// Check if 'id' is set in the URL
+if (isset($_GET['id'])) {
+    $amulet_id = intval($_GET['id']);
+
+    // Fetch the amulet details from the database
+    $sql = "SELECT amuletsell.*, seller.store_name 
+            FROM amuletsell 
+            JOIN seller ON amuletsell.seller_id = seller.seller_id 
+            WHERE amuletsell.amulet_sell_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $amulet_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if the amulet exists
+    if ($result->num_rows > 0) {
+        $amulet = $result->fetch_assoc();
+    } else {
+        echo "Amulet not found.";
+        exit();
+    }
+} else {
+    echo "Invalid ID.";
+    exit();
+}
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +40,6 @@ echo ($role);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amulet Auction</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 
 <body>
@@ -25,52 +49,45 @@ echo ($role);
         <section class="auction-item">
             <div class="row">
                 <div class="col-sm-2"> <!-- Small Image Column -->
-                    <img class="img-small" width="80px" data-src="./img/skd.png" src="./img/skd.png" alt="Small Image 1">
-                    <img class="img-small" width="80px" data-src="./img/pha.jpg" src="./img/pha.jpg" alt="Small Image 2">
-                    <img class="img-small" width="80px" data-src="./img/saisana.jpg" src="./img/saisana.jpg" alt="Small Image 3">
-                    <img class="img-small" width="80px" data-src="./img/amulet.jpg" src="./img/amulet.jpg" alt="Small Image 4">
-                    <img class="img-small" width="80px" data-src="./img/saisana.jpg" src="./img/saisana.jpg" alt="Small Image 4">
+                    <img class="img-small" width="80px" data-src="seller/<?php echo $amulet['amulet_sell_img']; ?>" src="seller/<?php echo $amulet['amulet_sell_img']; ?>" alt="Small Image 1">
                 </div>
                 <div class="col-md-6"> <!-- Large Image Column -->
-                    <img src="./img/skd.png" alt="Amulet Image" width="600px" class="img-fluid" id="largeImage">
+                    <img src="seller/<?php echo $amulet['amulet_sell_img']; ?>" alt="Amulet Image" width="600px" class="img-fluid" id="largeImage">
                 </div>
                 <div class="col-md-4">
-                    <h3 class="auction-description"><b>ຫລຽນພຣະຊາຄຳແດງ 1970</b></h3>
+                    <h3 class="auction-description"><b><?php echo $amulet['amulet_sell_name']; ?></b></h3>
                     <hr>
                     <div class="amulet-status">
-                        <h6 class="amulet-status">ລາຄາ:&nbsp;<span>5,000,000</span></h6>
-                        <h6 class="amulet-status">ໝວດໝູ່:&nbsp;<span>ພຣະກິ່ງ</span></h6>
-                        <h6 class="amulet-status">ສະຖານະ:&nbsp;<span id="status">ພ້ອມເຊົ່າ</span></h6>
+                        <h6 class="amulet-status">ລາຄາ:&nbsp;<span><?php echo $amulet['amulet_sell_price']; ?></span></h6>
+                        <h6 class="amulet-status">ໝວດໝູ່:&nbsp;<span><?php echo $amulet['amuletGroup']; ?></span></h6>
+                        <h6 class="amulet-status">ສະຖານະ:&nbsp;
+                            <span id="status" style="color: <?php echo ($amulet['amulet_sell_status'] == 'ForSale') ? 'green' : '#da9100'; ?>">
+                                <?php echo ($amulet['amulet_sell_status'] == 'ForSale') ? 'ພ້ອມເຊົ່າ' : 'ເຊົ່າແລ້ວ'; ?>
+                            </span>
+                        </h6>
                     </div><br>
                     <!-- Check the role and display buttons accordingly -->
-                    <?php if ($role === 'buyer') : ?>
+                    <?php if ($role === 'buyer' && $amulet['amulet_sell_status'] == 'ForSale') : ?>
                         <button id="requestToOrder" class="btn btn-dark" style="width: 400px;">ກົດເພື່ອຂໍສັ່ງຊື້</button>
+                    <?php elseif ($amulet['amulet_sell_status'] == 'Sold') : ?>
                     <?php else : ?>
                         <a href="login.php" class="btn btn-dark" style="width: 400px;">ເຂົ້າສູ່ລະບົບ</a>
                     <?php endif; ?>
                     <div class="details"><br>
                         <h5>ລາຍລະອຽດ</h5>
-                        <p id="Auction-detail">ພຣະກິ່ງຍອດທຸງໄຊ : ສ້າງທີ່ວັດໂພນໄຊ ປຸກເສກທີ່ວັດຈະເລີນໄຊ<br>
-                            ສ້າງໂດຍ : ທີມງານໄວລຸ້ນສະສົມພຣະເຄື່ອງ<br>
-                            ພຣະກິ່ງສ້າງເມື່ອວັນທີ່ 12 /8/2023 <br>
-                            ມີຫຼາຍພຣະອາຈານ ແລະ ເກຈິເຂົ້າຮ່ວມຄື : <br>
-                            ພຣະຄູ ໜູແອ່ງ ຈັນທະປັນໂຍ (ເປັນພຣະປະທານເປີດງານ) <br>
-                            ພຣະຄູ ນ່ອງ ວັດຈະເລີນໄຊ <br>
-                            ມີຫຼາຍພຣະອາຈານ ແລະ ເກຈິເຂົ້າຮ່ວມຄື : <br>
-                            ພຣະຄູ ໜູແອ່ງ ຈັນທະປັນໂຍ (ເປັນພຣະປະທານເປີດງານ) <br>
-                            ພຣະຄູ ນ່ອງ ວັດຈະເລີນໄຊ <br>
-                            ຍາຄຣູ ສົດ ວັດໜອງໄຮນ້ອຍ <br>
-                            ຍາຄຣູ ແບ້ ວັດໂຄດົມສີວຽງໄຊ <br>
-                            ຍາຄຣູ ກິ ວັດປ່າທ່າງ່ອນ <br>
-                            ຄູບາ ແດງ ວັດໄຊຊົມຊື່ນ <br>
-                            ຍາຄຣູ ແອ ວັດພູເຂົາຄວາຍ ແລະ ພຣະສົງອື່ນໆທີ່ເຂົ້າຮ່ວມພິທີໃນຄັ້ງນີ້ <br>
-                        </p>
-
+                        <p id="Auction-detail"><?php echo nl2br($amulet['amulet_sell_detail']); ?></p>
                     </div>
                 </div>
-
             </div>
         </section>
+        <!-- Hidden form to submit the order -->
+        <!-- <?php echo $_SESSION['user_id']; ?> -->
+        <form id="orderForm" action="order_amulet.php" method="POST" style="display: none;">
+            <input type="hidden" name="amulet_sell_id" value="<?php echo $amulet['amulet_sell_id']; ?>">
+            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+            <input type="hidden" name="orderamulet_qty" value="1"> <!-- Assuming quantity is 1 for this example -->
+            <input type="hidden" name="seller_id" value="<?php echo $amulet['seller_id']; ?>"> <!-- Assuming quantity is 1 for this example -->
+        </form>
     </main><br>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -80,14 +97,14 @@ echo ($role);
         document.getElementById("requestToOrder").addEventListener("click", function() {
             Swal.fire({
                 title: 'ສັ່ງຊື້',
-                text: 'ທ່ານເຈົ້າຕ້ອງການສັ່ງຊື້ບໍ?',
+                text: 'ທ່ານຕ້ອງການສັ່ງຊື້ບໍ?',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'ຢືນຢັນ',
                 cancelButtonText: 'ຍົກເລີກ'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "user_activity.php";
+                    document.getElementById('orderForm').submit();
                 }
             });
         });
@@ -108,6 +125,6 @@ echo ($role);
         });
     </script>
 </body>
-<?php include('footer.php') ?>
+<?php include('footer.php'); ?>
 
 </html>

@@ -30,13 +30,13 @@
                     <div class="d-flex">
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="amulet_status" id="exampleRadios1" value="ພ້ອມເຊົ່າ" checked>
+                            <input class="form-check-input" type="radio" name="amulet_status" id="exampleRadios1" value="ForSale" checked>
                             <label class="form-check-label" for="exampleRadios1">
                                 ພ້ອມເຊົ່າ
                             </label>
                         </div>
                         <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="amulet_status" id="exampleRadios2" value="ພຣະໂຊ">
+                            <input class="form-check-input" type="radio" name="amulet_status" id="exampleRadios2" value="ForShow">
                             <label class="form-check-label" for="exampleRadios2">
                                 ພຣະໂຊ
                             </label>
@@ -109,7 +109,6 @@ if(isset($_SESSION['user_id'])) {
             $amuletPrice = $_POST['amulet_price'];
             $amuletStatus = $_POST['amulet_status'];
             $amuletGroup = $_POST['amulet_group'];
-echo($amuletGroup);
             // File upload handling
             if ($_FILES["image1"]["size"] > 0) {
                 $targetDir = "uploads/";
@@ -121,6 +120,8 @@ echo($amuletGroup);
                             VALUES ('$sellerId', '$amuletName', '$amuletDetails', '$amuletPrice', '$targetFilePath', '$amuletStatus', '$amuletGroup')";
                     if(mysqli_query($conn, $sql)){
                         echo "Records inserted successfully.";
+                        header("Location: seller/index.php");
+
                     } else{
                         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
                     }

@@ -1,3 +1,13 @@
+<?php
+// Start the session and include database configuration
+include("../config.php");
+
+// Fetch data from the orderamulet and amuletsell tables with a join
+$sql = "SELECT o.*, a.*
+        FROM orderamulet o
+        INNER JOIN amuletsell a ON o.amulet_sell_id = a.amulet_sell_id";
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,22 +36,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>001</td>
-                            <td>ຫລຽນພຣະຊາຄຳແດງ</td>
-                            <td>mossphakhg</td>
-                            <td>02055667789</td>
-                            <td><button class="btn btn-sm btn-warning close-sale">ປິດການຂາຍ</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>001</td>
-                            <td>ຫລຽນພຣະຊາຄຳແດງ</td>
-                            <td>mossphakhg</td>
-                            <td>02055667789</td>
-                            <td><button class="btn btn-sm btn-warning close-sale">ປິດການຂາຍ</button></td>
-                        </tr>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                // Fetch user data associated with user_id
+                                $userId = $row['user_id'];
+                                $userSql = "SELECT * FROM user WHERE user_id = $userId";
+                                $userResult = $conn->query($userSql);
+                                $userRow = $userResult->fetch_assoc();
+
+                                // Check if new_owner_amulet is 0
+                                if ($row['new_owner_amulet'] == 0) {
+                        ?>
+                                    <tr>
+                                        <td><?php echo $row['amulet_sell_id']; ?></td>
+                                        <td><?php echo $row['amulet_sell_id']; ?></td>
+                                        <td><?php echo $row['amulet_sell_name']; ?></td>
+                                        <td><?php echo $userRow['username']; ?></td>
+                                        <td><?php echo $userRow['telephone']; ?></td>
+                                        <td><button class="btn btn-sm btn-warning close-sale" data-order-id="<?php echo $row['orderamulet_id']; ?>">ປິດການຂາຍ</button></td>
+                                    </tr>
+                        <?php
+                                }
+                            }
+                        } else {
+                            echo "No orders found.";
+                        }
+                        ?>
+
                     </tbody>
                 </table>
             </div>
@@ -49,32 +71,26 @@
     </div>
 
     <script>
-        // Add event listener to "ປິດການຂາຍ" buttons
-        var closeSaleButtons = document.querySelectorAll('.close-sale');
-        closeSaleButtons.forEach(function(button) {
+        document.querySelectorAll('.close-sale').forEach(button => {
             button.addEventListener('click', function() {
-                // Display SweetAlert confirmation
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, close the sale!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire(
-                            'Closed!',
-                            'The sale has been closed.',
-                            'success'
-                        );
-                        // Add your logic to handle closing the sale here
+                const orderId = this.getAttribute('data-order-id');
+                const userId = <?php echo $userRow['user_id']; ?>; // Assuming $userRow is accessible here
+
+                // Send AJAX request to update new_owner_amulet
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'update_order.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Handle the response if needed
+                        console.log(xhr.responseText);
                     }
-                });
+                };
+                xhr.send(`order_id=${orderId}&user_id=${userId}`);
             });
         });
     </script>
+
 </body>
 
 </html>

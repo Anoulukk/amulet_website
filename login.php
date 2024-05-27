@@ -95,6 +95,7 @@
                 } elseif ($user_data['active'] == 'true') {
                     // User is an active buyer
                     $_SESSION['role'] = 'buyer';
+                    $_SESSION['user_id'] = $user_data['user_id'];
                     $_SESSION['logged_in'] = true;
                     $_SESSION['username'] = $user_data['username'];
                     $_SESSION['lastname'] = $user_data['lastname'];

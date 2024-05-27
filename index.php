@@ -2,6 +2,12 @@
 include("config.php");
 session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+
+$sql = "SELECT amuletsell.*, seller.store_name 
+        FROM amuletsell 
+        JOIN seller ON amuletsell.seller_id = seller.seller_id";
+$result = $conn->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,104 +51,24 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
       </div>
 
       <div class="col-8 box">
-        <div class="col-3 text-center search-box">
-          <a href="amulet_detail.php">
-            <img class="store-img" src="./img/skd.png" alt="">
-          </a>
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:green">ພ້ອມເຊົ່າ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:green">ພ້ອມເຊົ່າ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:green">ພ້ອມເຊົ່າ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:green">ພ້ອມເຊົ່າ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#da9100">ເຊົ່າແລ້ວ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#da9100">ເຊົ່າແລ້ວ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#da9100">ເຊົ່າແລ້ວ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#da9100">ເຊົ່າແລ້ວ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/saisana.jpg" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#cc0000">ພຣະໂຊ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/amulet.jpg" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#cc0000">ພຣະໂຊ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/skd.png" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#cc0000">ພຣະໂຊ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulet</p>
-          </div>
-        </div>
-        <div class="col-3 text-center search-box">
-          <img class="store-img" src="./img/pha.jpg" alt="">
-          <div class="store-details">
-            <h6>ຫລຽນພຣະຊາຄຳແດງ 1970</h6>
-            <h6 style="color:#cc0000">ພຣະໂຊ</h6>
-            <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;moss amulettttt</p>
-          </div>
-        </div>
+        <?php if ($result->num_rows > 0): ?>
+          <?php while($row = $result->fetch_assoc()): ?>
+            <div class="col-3 text-center search-box">
+              <a href="amulet_detail.php?id=<?php echo $row['amulet_sell_id']; ?>">
+                <img class="store-img" src="./seller/<?php echo $row['amulet_sell_img']; ?>" alt="<?php echo $row['amulet_sell_name']; ?>">
+              </a>
+              <div class="store-details">
+                <h6><?php echo $row['amulet_sell_name']; ?></h6>
+                <h6 style="color: <?php echo ($row['amulet_sell_status'] == 'ForSale') ? 'green' : '#da9100'; ?>">
+                  <?php echo ($row['amulet_sell_status'] == 'ForSale') ? 'ພ້ອມເຊົ່າ' : 'ເຊົ່າແລ້ວ'; ?>
+                </h6>
+                <p class="store-name"><i class="fa-solid fa-house"></i>&nbsp;<?php echo $row['store_name']; ?></p>
+              </div>
+            </div>
+          <?php endwhile; ?>
+        <?php else: ?>
+          <p>No amulets available for sale.</p>
+        <?php endif; ?>
       </div>
       <div class="col" style="margin-top:20px">
         <h5 class="text-center">ຂ່າວສານປະຊາສຳພັນ</h5>
