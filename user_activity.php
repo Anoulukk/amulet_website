@@ -3,6 +3,18 @@
 include("config.php");
 session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+$userId = $_SESSION['user_id'];
+$query = "SELECT o.orderamulet_id, o.amulet_sell_id, o.orderamulet_date, o.orderamulet_qty, o.user_id, 
+               o.seller_id, o.new_owner_amulet, a.amulet_sell_name, a.amulet_sell_detail, a.amulet_sell_price,
+               a.amulet_sell_img, a.amulet_sell_status, a.amulet_sell_date, a.amuletGroup,
+               s.store_name, s.id_card, s.description, s.seller_address
+          FROM orderamulet o
+          JOIN amuletsell a ON o.amulet_sell_id = a.amulet_sell_id
+          JOIN seller s ON o.seller_id = s.seller_id
+          WHERE o.user_id = '$userId'";
+$result = mysqli_query($conn, $query);
+
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,19 +41,24 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
               <th scope="col">ລະຫັດສິນຄ້າ</th>
               <th scope="col">ຊື່ສິນຄ້າ</th>
               <th scope="col">ຊື່ຮ້ານຄ້າ</th>
-              <th scope="col">ເບີໂທຮ້ານຄ້າ</th>
+              <th scope="col">ລາຍລະອຽດຮ້ານຄ້າ</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>001</td>
-              <td>ຫລຽນພຣະຊາຄຳແດງ</td>
-              <td>mossphakhg</td>
-              <td>02055667789</td>
-            </tr>
-
-          </tbody>
+          <?php
+           if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<th scope='row'>" . $row['orderamulet_id'] . "</th>";
+                echo "<td>" . $row['amulet_sell_id'] . "</td>";
+                echo "<td>" . $row['amulet_sell_name'] . "</td>";
+                echo "<td>" . $row['store_name'] . "</td>";
+                echo "<td>" . $row['seller_address'] . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='13'>No orders found</td></tr>";
+        }
+        ?>
         </table>
       </div>
 

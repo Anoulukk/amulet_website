@@ -92,8 +92,7 @@
   // Assuming you have fetched the data and stored it in an array called $amulets
   // Loop through the amulets array and display each amulet in a column
   $counter = 0; // Initialize a counter
-  foreach ($amulets as $amulet) {
-    // Display the first six amulets in the first row
+ foreach ($amulets as $amulet) {
     if ($counter < 6) {
       echo '<div class="col-2 text-center store-box">';
       echo '<span>';
@@ -101,7 +100,19 @@
       echo '</span>';
       echo '<div class="store-details">';
       echo '<h6>' . $amulet['amulet_sell_name'] . '</h6>';
-      echo '<p class="text-danger">ຂາຍແລ້ວ</p>'; // Assuming this text is fixed
+
+      // Use conditional statements to set class based on amulet_sell_status
+      if ($amulet['amulet_sell_status'] == 'ForSale') {
+        echo '<p class="text-success"> ພ້ອມເຊົ່າ </p>';
+      } elseif ($amulet['amulet_sell_status'] == 'Sold') {
+        echo '<p class="text-danger">ຂາຍແລ້ວ</p>';
+      } elseif ($amulet['amulet_sell_status'] == 'ForShow') {
+        echo '<p class="text-warning">ພຣະໂຊ</p>';
+      } else {
+        // Handle other cases if needed
+        echo '<p>' . $amulet['amulet_sell_status'] . '</p>';
+      }
+
       echo '</div>';
       echo '</div>';
     }
@@ -124,12 +135,12 @@
       echo '<h6>' . $amulet['amulet_sell_name'] . '</h6>';
 
       // Use conditional statements to set class based on amulet_sell_status
-      if ($amulet['amulet_sell_status'] == 'ພ້ອມເຊົ່າ') {
-        echo '<p class="text-success">' . $amulet['amulet_sell_status'] . '</p>';
-      } elseif ($amulet['amulet_sell_status'] == 'ຂາຍແລ້ວ') {
-        echo '<p class="text-danger">' . $amulet['amulet_sell_status'] . '</p>';
-      } elseif ($amulet['amulet_sell_status'] == 'ພຣະໂຊ') {
-        echo '<p class="text-warning">' . $amulet['amulet_sell_status'] . '</p>';
+      if ($amulet['amulet_sell_status'] == 'ForSale') {
+        echo '<p class="text-success"> ພ້ອມເຊົ່າ </p>';
+      } elseif ($amulet['amulet_sell_status'] == 'Sold') {
+        echo '<p class="text-danger">ຂາຍແລ້ວ</p>';
+      } elseif ($amulet['amulet_sell_status'] == 'ForShow') {
+        echo '<p class="text-warning">ພຣະໂຊ</p>';
       } else {
         // Handle other cases if needed
         echo '<p>' . $amulet['amulet_sell_status'] . '</p>';

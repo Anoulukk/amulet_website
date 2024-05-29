@@ -10,10 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $amuletSellIdResult = $conn->query($amuletSellIdSql);
     $amuletSellIdRow = $amuletSellIdResult->fetch_assoc();
     $amuletSellId = $amuletSellIdRow['amulet_sell_id'];
-
+$status = "Sold";
     // Update new_owner_amulet in the orderamulet table for all orders with the same amulet_sell_id
     $updateSql = "UPDATE orderamulet SET new_owner_amulet = $userId WHERE amulet_sell_id = $amuletSellId";
-
+    $updateSql2 = "UPDATE amuletsell SET amulet_sell_status = 'Sold' WHERE amulet_sell_id = $amuletSellId";
+    $conn->query($updateSql2);
     if ($conn->query($updateSql) === TRUE) {
         echo "Records updated successfully";
     } else {

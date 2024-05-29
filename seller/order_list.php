@@ -84,6 +84,13 @@ $result = $conn->query($sql);
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         // Handle the response if needed
                         console.log(xhr.responseText);
+                        // Display success alert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Operation completed successfully'
+                        });
+
                     }
                 };
                 xhr.send(`order_id=${orderId}&user_id=${userId}`);
