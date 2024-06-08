@@ -100,7 +100,7 @@ if(isset($_POST['submit'])) {
         if(move_uploaded_file($_FILES["image1"]["tmp_name"], $targetFilePath)) {
             // Insert data into database
             // Adjust your database query accordingly
-            $sql = "INSERT INTO amuletauction (amulet_auction_name, amulet_auction_detail, auction_status, countdown_days, start_bid, minimum_bid, amulet_auction_img, seller_id) 
+            $sql = "INSERT INTO auction (amulet_auction_name, amulet_auction_detail, auction_status, countdown_days, start_bid, minimum_bid, amulet_auction_img, seller_id) 
                     VALUES ('$amuletName', '$amuletDetails', 'ກຳລັງປະມູນ', '$countDays', '$startBid', '$minimumBid', '$targetFilePath', '$sellerId')";
             // Execute the query4
             if(mysqli_query($conn, $sql)){

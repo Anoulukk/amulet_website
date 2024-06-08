@@ -48,16 +48,34 @@
     // No amulets found
     $amulets = array(); // Initialize an empty array if no results
   }
-    // Fetch data for amulets being auctioned
-    $sql_auction = "SELECT * FROM amuletauction";
-    $result_auction = mysqli_query($conn, $sql_auction);
-    $amulets_auction = array();
-    if (mysqli_num_rows($result_auction) > 0) {
-      while ($row = mysqli_fetch_assoc($result_auction)) {
-        $amulets_auction[] = $row;
+// Fetch auction details and update status if time is up
+$sql_auction = "SELECT * FROM auction";
+$result_auction = mysqli_query($conn, $sql_auction);
+$amulets_auction = array();
+$current_time = date('Y-m-d H:i:s');
+while ($row = mysqli_fetch_assoc($result_auction)) {
+    $auction_end_time = date('Y-m-d H:i:s', strtotime($row['amulet_auction_date'] . ' + ' . $row['countdown_days'] . ' days'));
+    if ($current_time >= $auction_end_time && $row['auction_status'] !== 'ປິດປະມູນ') {
+      // Find the highest bidder
+      $auction_id = $row['auction_id'];
+      $highest_bid_sql = "SELECT user_id FROM auctionlist WHERE auction_id = $auction_id ORDER BY auction_price DESC LIMIT 1";
+      $highest_bid_result = mysqli_query($conn, $highest_bid_sql);
+      if (mysqli_num_rows($highest_bid_result) > 0) {
+          $highest_bid_row = mysqli_fetch_assoc($highest_bid_result);
+          $highest_bid_user_id = $highest_bid_row['user_id'];
+      } else {
+          $highest_bid_user_id = null;
       }
-    }
-  
+
+      // Update auction status and winner
+      $update_sql = "UPDATE auction SET auction_status = 'ປິດປະມູນ', user_id = '$highest_bid_user_id' WHERE auction_id = $auction_id";
+      mysqli_query($conn, $update_sql);
+      $row['auction_status'] = 'ປິດປະມູນ'; // Update the status in the fetched data
+      $row['user_id'] = $highest_bid_user_id; // Update the user_id in the fetched data
+  }
+  $amulets_auction[] = $row;
+}
+
 
   if (mysqli_num_rows($result2) > 0) {
     while ($row = mysqli_fetch_assoc($result2)) {
@@ -169,7 +187,7 @@
           case 'ກຳລັງປະມູນ':
             $statusClass = 'text-success';
             break;
-          case 'ປິດປະມູນແລ້ວ':
+          case 'ປິດປະມູນ':
             $statusClass = 'text-danger';
             break;
           default:

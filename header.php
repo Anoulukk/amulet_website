@@ -35,14 +35,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
             </a>
         </div>
         <div class="register-btn">
-            <?php if ($role === 'buyer'): ?>
-                
+            <?php if ($role === 'buyer') : ?>
+
                 <a href="my_acc.php" class="btn btn-light "><span><img src="img/" alt=""></span>&nbsp;ບັນຊີຂອງຂ້ອຍ</a>
-                <?php else: ?>
-                    <a href="login.php" class="btn btn-warning " style=""><span><img src="img/edit_FILL0_wght400_GRAD0_opsz24.png" alt=""></span>&nbsp;ເຂົ້າສູ່ລະບົບ</a>
+            <?php else : ?>
+                <a href="login.php" class="btn btn-warning " style=""><span><img src="img/edit_FILL0_wght400_GRAD0_opsz24.png" alt=""></span>&nbsp;ເຂົ້າສູ່ລະບົບ</a>
                 <a href="my_acc.php" class="btn btn-light "><span><img src="img/" alt=""></span>&nbsp;ບັນຊີຂອງຂ້ອຍ</a>
-                    
-                    <?php endif; ?>
+
+            <?php endif; ?>
 
         </div>
 
@@ -63,18 +63,18 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
                 <li class="nav-item">
                     <a class="nav-link" href="history.php">ປະຫວັດພຣະເຄື່ອງ</a>
                 </li>
-                <?php if ($role === 'buyer'): ?>
+                <?php if ($role === 'buyer') : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="user_activity.php">ບັນທຶກກິດຈະກຳ</a>
                     </li>
-                <?php else: ?>
+                <?php else : ?>
                     <!-- Hide this navigation item if the role is not 'buyer' -->
                 <?php endif; ?>
-                <?php if ($role !== 'buyer'): ?>
+                <?php if ($role !== 'buyer') : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.php">ຕິດຕໍ່ພວກເຮົາ</a>
                     </li>
-                <?php else: ?>
+                <?php else : ?>
                     <!-- Hide this navigation item if the role is 'buyer' -->
                 <?php endif; ?>
             </ul>
@@ -117,9 +117,11 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
             // Get the current URL and extract the file name
             const currentURL = window.location.href;
-            const fileName = currentURL.substring(currentURL.lastIndexOf("/") + 1);
-
-            // Add condition to add 'active' class to the first nav item if the file name is 'index.php'
+            let fileName = currentURL.substring(currentURL.lastIndexOf("/") + 1);
+            if (fileName.includes("?")) {
+                console.log(fileName);
+                fileName = fileName.substring(0, fileName.indexOf("?"));
+            }
             if (fileName === 'index.php' || fileName == 'amulet_detail.php') {
                 navItems[0].classList.add('active');
             } else if (fileName == 'auction.php' || fileName == 'auction_detail.php') {

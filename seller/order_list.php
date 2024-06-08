@@ -48,13 +48,13 @@ $result = $conn->query($sql);
                                 // Check if new_owner_amulet is 0
                                 if ($row['new_owner_amulet'] == 0) {
                         ?>
-                                    <tr>
+                                    <tr data-order-id="<?php echo $row['orderamulet_id']; ?>">
                                         <td><?php echo $row['amulet_sell_id']; ?></td>
                                         <td><?php echo $row['amulet_sell_id']; ?></td>
                                         <td><?php echo $row['amulet_sell_name']; ?></td>
                                         <td><?php echo $userRow['username']; ?></td>
                                         <td><?php echo $userRow['telephone']; ?></td>
-                                        <td><button class="btn btn-sm btn-warning close-sale" data-order-id="<?php echo $row['orderamulet_id']; ?>">ປິດການຂາຍ</button></td>
+                                        <td><button class="btn btn-sm btn-warning close-sale" data-order-id="<?php echo $row['orderamulet_id']; ?>" data-user-id="<?php echo $userRow['user_id']; ?>">ປິດການຂາຍ</button></td>
                                     </tr>
                         <?php
                                 }
@@ -74,7 +74,7 @@ $result = $conn->query($sql);
         document.querySelectorAll('.close-sale').forEach(button => {
             button.addEventListener('click', function() {
                 const orderId = this.getAttribute('data-order-id');
-                const userId = <?php echo $userRow['user_id']; ?>; // Assuming $userRow is accessible here
+                const userId = this.getAttribute('data-user-id');
 
                 // Send AJAX request to update new_owner_amulet
                 const xhr = new XMLHttpRequest();
@@ -89,8 +89,10 @@ $result = $conn->query($sql);
                             icon: 'success',
                             title: 'Success',
                             text: 'Operation completed successfully'
+                        }).then(() => {
+                            // Remove the row from the table
+                            document.querySelector(`tr[data-order-id="${orderId}"]`).remove();
                         });
-
                     }
                 };
                 xhr.send(`order_id=${orderId}&user_id=${userId}`);

@@ -2,7 +2,7 @@
 // Start the session
 include('../config.php');
 session_start();
-echo($_SESSION['role']);
+// echo($_SESSION['role']);
 $userId = $_SESSION['user_id'];
 
     // Query to retrieve seller ID based on user ID
@@ -10,7 +10,7 @@ $userId = $_SESSION['user_id'];
 
     $sellerIdResult = mysqli_query($conn, $sellerIdQuery);
         $row = mysqli_fetch_assoc($sellerIdResult);
-        echo($row['seller_id']);
+        // echo($row['seller_id']);
 
 if ($_SESSION['role'] !== "seller") {
     header("Location: ../logout.php");

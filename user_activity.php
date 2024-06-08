@@ -15,7 +15,6 @@ $query = "SELECT o.orderamulet_id, o.amulet_sell_id, o.orderamulet_date, o.order
 $result = mysqli_query($conn, $query);
 
 ?>
-?>
 <!DOCTYPE html>
 <html lang="en">
 

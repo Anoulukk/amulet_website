@@ -5,7 +5,7 @@ session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
 // SQL query to fetch data from the seller table
-$sql = "SELECT * FROM amuletauction";
+$sql = "SELECT * FROM auction";
 $result = $conn->query($sql);
 
 ?>
@@ -60,9 +60,9 @@ $result = $conn->query($sql);
                 echo '<div>';
                 echo '<h6 class="auction-status">' . $row["auction_status"] . '</h6>';
                 echo '<p><b>' . $row["amulet_auction_name"] . '</b></p>';
-                echo '<p>ລາຄາປັດຈຸບັນ : <span>' . $row["start_bid"] . ' ກີບ</span></p>';
+                echo '<p>ລາຄາເລີ່ມຕົ້ນ : <span>' . $row["start_bid"] . ' ກີບ</span></p>';
                 echo '<a class="browse-store" href="#"><i class="fa-solid fa-house"></i>&nbsp;ຮ້ານມອດຊີ້ພະເຄື່ອງ</a><br><br>';
-                echo '<a class="browse-auction" href="auction_detail.php">ເຂົ້າເບິ່ງ</a>';
+                echo '<a class="browse-auction" href="auction_detail.php?auction_id=' . $row["auction_id"] . '">ເຂົ້າເບິ່ງ</a>';
                 echo '</div>';
                 echo '</div>';
             }

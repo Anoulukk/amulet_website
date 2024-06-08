@@ -78,7 +78,7 @@ $result = $conn->query($sql);
         <p class="news-title"><a href="" class="category">ສຳລັບລູກຄ້າທີ່ເປີດຮ້ານໃໝ່ພາຍໃນເດືອນຕຸລານີ້ແມ່ນຈະໄດ້ຮັບສ່ວນຫຼຸດ 30% </a></p>
         <p class="news-title"><a href="" class="category">ໂປຣໂມຊັ່ນພິເສດ!! ສຳລັບລູກຄ້າທີ່ເປີດຮ້ານໃໝ່ພາຍໃນເດືອນຕຸລານີ້ແມ່ນຈະໄດ້ຮັບສ່ວນຫຼຸດ 30% ໃນການເປີດຮ້ານໃໝ່</a></p>
         <hr>
-        <p class="news-title text-center" id="all-news-btn">ເບິ່ງທັງໝົດ <i class="fa-solid fa-arrow-right"></i></p>
+        <!-- <p class="news-title text-center" id="all-news-btn">ເບິ່ງທັງໝົດ <i class="fa-solid fa-arrow-right"></i></p> -->
       </div>
     </div>
 

@@ -87,7 +87,7 @@
                             </div>
                             <!-- Additional fields for seller -->
                             <div id="sellerFields" style="display: none;">
-                                <h4>ສາມາດລົງທະບຽນໄດ້ສະເພາະຄົນທິ່ມີບັນຊີຜູ້ໃຊ້ແລ້ວ</h4>
+                                <h4 class="text-danger">ສາມາດລົງທະບຽນໄດ້ສະເພາະຄົນທິ່ມີບັນຊີຜູ້ໃຊ້ແລ້ວ</h4>
                                 <div class="form-group row mt-2">
                                     <label for="shopName" class="col-sm-2 col-form-label">ຊື່ຮ້ານຄ້າ:</label>
                                     <div class="col-sm-10">
