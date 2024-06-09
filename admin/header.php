@@ -51,7 +51,7 @@ if ($_SESSION['role'] !== "admin") {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="preorder_form.php">ເປີດຈອງພຣະເຄື່ອງ</a>
+                    <a class="nav-link" href="suspensionlist.php">ລາຍງານການເຮັດຜິດກົດ</a>
                 </li>
 
     

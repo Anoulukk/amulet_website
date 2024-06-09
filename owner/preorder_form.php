@@ -26,12 +26,12 @@
             <!-- Form fields for different amulets -->
             <?php
             $amulets = [
-                ['id' => 'gold_group', 'name' => '1. ເນື້ອທອງຄຳ'],
-                ['id' => 'silver_group', 'name' => '3. ເນື້ອເງີນ'],
-                ['id' => 'director_group', 'name' => '4. ຊຸດກຳມະການ'],
-                ['id' => 'buddha_9_group', 'name' => '5. ອົງບູຊາຂະໜາດ 9 ນິ້ວ'],
-                ['id' => 'buddha_5_group', 'name' => '6. ອົງບູຊາຂະໜາດ 5 ນິ້ວ'],
-                ['id' => 'random', 'name' => '7. ລຸ້ນເນື້ອ']
+                ['id' => 'gold_group', 'name' => 'ເນື້ອທອງຄຳ'],
+                ['id' => 'silver_group', 'name' => 'ເນື້ອເງີນ'],
+                ['id' => 'director_group', 'name' => 'ຊຸດກຳມະການ'],
+                ['id' => 'buddha_9_group', 'name' => 'ອົງບູຊາຂະໜາດ 9 ນິ້ວ'],
+                ['id' => 'buddha_5_group', 'name' => 'ອົງບູຊາຂະໜາດ 5 ນິ້ວ'],
+                ['id' => 'random', 'name' => 'ລຸ້ນເນື້ອ']
             ];
             foreach ($amulets as $amulet) {
                 echo "
@@ -120,13 +120,13 @@
         if ($stmt1->execute()) {
             $preorder_id = $stmt1->insert_id;
 
-            $stmt2 = $conn->prepare("INSERT INTO preorderdetails (preorder_id, amulet_pre_name, amulet_pre_group, amulet_pre_price, totalquantity) VALUES (?, ?, ?, ?, ?)");
+            $stmt2 = $conn->prepare("INSERT INTO preorderdetails (preorder_id, amulet_pre_name, amulet_pre_group, amulet_pre_price, totalquantity, stock) VALUES (?, ?, ?, ?, ?, ?)");
             foreach ($amulets as $amulet) {
                 $amulet_pre_name = $amulet['name'];
                 $amulet_pre_group = $amulet['id'];
                 $amulet_pre_price = mysqli_real_escape_string($conn, $_POST["{$amulet['id']}_price"]);
                 $totalquantity = mysqli_real_escape_string($conn, $_POST["{$amulet['id']}_total"]);
-                $stmt2->bind_param("issii", $preorder_id, $amulet_pre_name, $amulet_pre_group, $amulet_pre_price, $totalquantity);
+                $stmt2->bind_param("issii", $preorder_id, $amulet_pre_name, $amulet_pre_group, $amulet_pre_price, $totalquantity, $totalquantity);
                 $stmt2->execute();
 
                 // Get the last inserted preorderdetails_id

@@ -1,7 +1,6 @@
 <?php
 // Start the session
 session_start();
-echo( $_SESSION['role']);
 if ($_SESSION['role'] !== "owner") {
     header("Location: ../logout.php");
 } 
