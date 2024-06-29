@@ -1,3 +1,27 @@
+<?php
+// fetch_feedback.php
+include('../config.php');
+
+$sql = "SELECT r.rate_score, r.rate_date, r.rate_detail, r.rater_id, r.receiver_id, u.username, u.lastname
+        FROM rate r
+        JOIN user u ON r.rater_id = u.user_id";
+$result = $conn->query($sql);
+
+$feedbackData = [];
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $feedbackData[] = [
+            'name' => $row['username'] . ' ' . $row['lastname'],
+            'score' => $row['rate_score'],
+            'detail' => $row['rate_detail'],
+            'date' => $row['rate_date']
+        ];
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,42 +70,29 @@
 
     <div class="container col-8">
         <h2>ລາຍງານຈາກລູກຄ້າ</h2>
-        <h4>ລີວີວຮ້ານຄ້າ: <span id="summaryScore"></span> ຄະແນນ</h4>
+        <h4>ລີວີວຮ້ານຄ້າ: <span class="text-primary" id="summaryScore"></span> ຄະແນນ</h4>
 
         <div id="feedbackList">
-            <!-- Feedback items will be dynamically inserted here -->
+            <?php
+                $totalScore = 0;
+                $feedbackCount = count($feedbackData);
+                foreach ($feedbackData as $feedback) {
+                    $totalScore += $feedback['score'];
+                    echo '<div class="feedback-card">';
+                    echo '<p><span class="date mt-3">ວັນທີ ' . $feedback['date'] . '</span></p>';
+                    echo '<p><strong>ຊື່:</strong> ' . $feedback['name'] . '</p>';
+                    echo '<p><strong>ຄະແນນ:</strong> ' . $feedback['score'] . ' Stars</p>';
+                    echo '<p><strong>ລາຍລະອຽດ:</strong> ' . $feedback['detail'] . '</p>';
+                    echo '</div>';
+                }
+
+                $averageScore = $feedbackCount > 0 ? $totalScore / $feedbackCount : 0;
+            ?>
         </div>
     </div>
 
     <script>
-        // Sample feedback data (you can replace this with your actual data)
-        var feedbackData = [
-            { name: "ມີໄຊ", score: 5, date: "2024-03-25" },
-            { name: "ຈັນທິພອນ", score: 4, date: "2024-03-24" },
-            { name: "ມີໄຊ", score: 5, date: "2024-03-25" },
-            { name: "ຈັນທິພອນ", score: 4, date: "2024-03-24" },
-            { name: "ມີໄຊ", score: 5, date: "2024-03-25" },
-            { name: "ຈັນທິພອນ", score: 4, date: "2024-03-24" },
-            // Add more feedback items as needed
-        ];
-
-        // Calculate summary score
-        var totalScore = feedbackData.reduce(function(acc, feedback) {
-            return acc + feedback.score;
-        }, 0);
-        var averageScore = totalScore / feedbackData.length;
-        document.getElementById('summaryScore').textContent = averageScore.toFixed(1);
-
-        // Display feedback items
-        var feedbackList = document.getElementById('feedbackList');
-        feedbackData.forEach(function(feedback) {
-            var feedbackItem = document.createElement('div');
-            feedbackItem.classList.add('feedback-card');
-            feedbackItem.innerHTML = `<p><span class="date mt-3">ວັນທີ ${feedback.date}</span></p>
-                                      <p><strong>ຊື່:</strong> ${feedback.name}</p>
-                                      <p><strong>ຄະແນນ:</strong> ${feedback.score} Stars</p>`;
-            feedbackList.appendChild(feedbackItem);
-        });
+        document.getElementById('summaryScore').textContent = "<?php echo number_format($averageScore, 1); ?>";
     </script>
 </body>
 

@@ -2,7 +2,6 @@
 
 <div class="row">
     <h4 class="mt-3">ລາຍການຂໍລົງທະບຽນບັນຊີຜູ້ໃຊ້</h4>
-    <h5 class="text-danger">ມີທັງໝົດ 2 ລາຍການ</h5>
 </div>
 
 <div class="row">

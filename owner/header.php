@@ -100,8 +100,11 @@
                 navItems[1].classList.add('active');
             } else if (fileName == 'preorder_form.php') {
                 navItems[2].classList.add('active');
+            } else if (fileName == 'history_form.php') {
+                navItems[3].classList.add('active');
             } 
-        }
+        } 
+        
         changeColor()
     </script>
 </body>

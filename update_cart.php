@@ -21,6 +21,10 @@ $row = $result->fetch_assoc();
 
 $totalPreorders = $row['total_preorders'];
 
+$amuletss = getAmuletById($id);
+$stockQuantity = $amuletss['stock']; // Using 'stock' column from the table
+
+
 if ($action == 'increase') {
     // Check total quantity in cart
     $totalQuantity = 0;
@@ -29,7 +33,12 @@ if ($action == 'increase') {
     }
     
     // If total quantity exceeds 10, return a message
-    if ($totalQuantity + $totalPreorders >= 10) {
+    if($totalQuantity + $totalPreorders < 10){
+        if ($totalQuantity >= $stockQuantity) {
+            echo "You can only add up to 10 items in total.";
+            exit;
+        }
+    }else{
         echo "You can only add up to 10 items in total.";
         exit;
     }
@@ -71,7 +80,7 @@ function getAmuletById($id) {
     // Implement your logic to fetch amulet details by ID from the database
     // Example:
     include("config.php");
-    $sql = "SELECT amulet_pre_id, amulet_pre_name, amulet_pre_price FROM preorderdetails WHERE amulet_pre_id = $id";
+    $sql = "SELECT amulet_pre_id, amulet_pre_name, amulet_pre_price, stock FROM preorderdetails WHERE amulet_pre_id = $id";
     $result = $conn->query($sql);
     return $result->fetch_assoc();
 }

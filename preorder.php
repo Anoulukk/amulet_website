@@ -12,7 +12,7 @@ $sql = "SELECT p.preorder_id, p.preorder_amulet_name, p.preorder_detail, p.preor
         JOIN preorderdetails pd ON p.preorder_id = pd.preorder_id";
 
 $result = $conn->query($sql);
-$preorder_amulet_name = "ສູນຈອງຫຼຽນພຣະອາຈານຊາຄຳແດງ"; // Default name
+$preorder_amulet_name = ""; // Default name
 $preorder_detail = "";
 $images = [];
 $gold_items = [];
@@ -49,6 +49,8 @@ if ($result->num_rows > 0) {
       $random_items[] = $row;
     }
   } while ($row = $result->fetch_assoc());
+} else {
+  $no_data_message = "No data available.";
 }
 ?>
 <!DOCTYPE html>
@@ -145,7 +147,7 @@ if ($result->num_rows > 0) {
           <?php endforeach; ?>
         </div>
       </div>
-      <h3 class="mt-3">ສູນຈອງຫຼຽນ</h3>
+      <h3 class="mt-3">ຕິດຕໍ່ສູນຈອງ</h3>
       <div class="col d-flex text-start cardBg rounded">
         <div class="d-flex flex-column justify-content-center align-items-center">
           <img src="./img/logomoss.jpg" class="circle-img " width="150px" alt="">
@@ -166,174 +168,175 @@ if ($result->num_rows > 0) {
       </div>
       <h3 class="mt-3">ລາຍການທັງໝົດ</h3>
       <div class="col d-flex text-start cardBg rounded p-2 justify-content-center align-items-center">
-        <button type="button" class="btn btn-light p-1 me-3">ທັງໝົດ</button>
-        <button type="button" class="btn btn-light p-1 me-3">ເນື້ອທອງຄຳ</button>
-        <button type="button" class="btn btn-light p-1 me-3">ເນື້ອເງີນ</button>
-        <button type="button" class="btn btn-light p-1 me-3">ລາຍການຊຸດກຳມະການ</button>
-        <button type="button" class="btn btn-light p-1 me-3">ລຸ້ນເນື້ອ</button>
-        <button type="button" class="btn btn-light p-1 me-3">ອົງບູຊາ ຂະໜາດ 9 ນິ້ວ</button>
-        <button type="button" class="btn btn-light p-1 me-3">ອົງບູຊາ ຂະໜາດ 5 ນິ້ວ</button>
+        <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ທັງໝົດ</p>
+        <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ເນື້ອທອງຄຳ</p>
+        <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ເນື້ອເງີນ</p>
+        <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ລາຍການຊຸດກຳມະການ</p>
+        <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ລຸ້ນເນື້ອ</p>
+        <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ອົງບູຊາ ຂະໜາດ 9 ນິ້ວ</p>
+        <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ອົງບູຊາ ຂະໜາດ 5 ນິ້ວ</p>
       </div>
       <?php if ($role === "user" || $role == null) : ?>
         <a href="login.php" class="btn btn-danger mt-3">ເຂົ້າສູ່ລະບົບເພື່ອຈອງ</a>
-    </div>
-  </div>
+      <?php endif; ?>
 
-<?php else : ?>
-  <h3 class="mt-3"></h3>
-  <a href="user_preorder_form.php" class="btn btn-light border border-warning border-2 shadow">ເບິ່ງລາຍການທີ່ເລືອກ</a>
-  <div class="d-flex mb-3 mt-3">
-
-
-    <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
-      <h4>1. ເນື້ອທອງຄຳ</h4>
-      <?php foreach ($gold_items as $item) : ?>
-        <div class="d-flex justify-content-center">
-          <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
-          <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
-        </div><br>
-        <div class="row justify-content-center mb-3 bg-light p-3 rounded">
-          <div class="col text-end">
-            <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
-          </div>
-          <div class="col-6 text-start">
-            <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
-            <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
-          </div>
-          <div class="col text-center">
-            <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
-          </div>
+      <?php if (isset($no_data_message)) : ?>
+        <div class="alert alert-warning mt-3">
+          <?= $no_data_message ?>
         </div>
-      <?php endforeach; ?>
+      <?php else : ?>
+        <h3 class="mt-3"></h3>
+        <a href="user_preorder_form.php" class="btn btn-light border border-warning border-2 shadow">ເບິ່ງລາຍການທີ່ເລືອກ</a>
+        <div class="d-flex mb-3 mt-3">
 
-    </div>
-    <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
-      <h4>2. ເນື້ອເງິນ </h4>
-      <?php foreach ($silver_items as $item) : ?>
-        <div class="d-flex justify-content-center">
-          <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
-          <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
-        </div><br>
-        <div class="row justify-content-center mb-3 bg-light p-3 rounded">
-          <div class="col text-end">
-            <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
-          </div>
-          <div class="col-6 text-start">
-            <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
-            <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
-          </div>
-          <div class="col text-center">
-            <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+
+          <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
+            <h4>1. ເນື້ອທອງຄຳ</h4>
+            <?php foreach ($gold_items as $item) : ?>
+              <div class="d-flex justify-content-center">
+                <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
+                <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
+              </div><br>
+              <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+                <div class="col text-end">
+                  <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+                </div>
+                <div class="col-6 text-start">
+                  <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
+                  <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
+                </div>
+                <div class="col text-center">
+                  <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+                </div>
+              </div>
+            <?php endforeach; ?>
 
           </div>
-        </div>
-      <?php endforeach; ?>
+          <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
+            <h4>2. ເນື້ອເງິນ </h4>
+            <?php foreach ($silver_items as $item) : ?>
+              <div class="d-flex justify-content-center">
+                <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
+                <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
+              </div><br>
+              <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+                <div class="col text-end">
+                  <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+                </div>
+                <div class="col-6 text-start">
+                  <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
+                  <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
+                </div>
+                <div class="col text-center">
+                  <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
 
-    </div>
-  </div>
-  <div class="d-flex mb-3">
-
-    <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
-      <h4>3. ຊຸດກຳມະການ</h4>
-      <?php foreach ($director_items as $item) : ?>
-        <div class="d-flex justify-content-center">
-          <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
-          <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
-        </div><br>
-        <div class="row justify-content-center mb-3 bg-light p-3 rounded">
-          <div class="col text-end">
-            <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
-          </div>
-          <div class="col-6 text-start">
-            <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
-            <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
-          </div>
-          <div class="col text-center">
-            <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+                </div>
+              </div>
+            <?php endforeach; ?>
 
           </div>
         </div>
-      <?php endforeach; ?>
+        <div class="d-flex mb-3">
 
-    </div>
-    <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
-      <h4>4. ອົງບູຊາຂະໜາດ 9 ນິ້ວ</h4>
-      <?php foreach ($buddha_9_items as $item) : ?>
-        <div class="d-flex justify-content-center">
-          <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
-          <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
-        </div><br>
-        <div class="row justify-content-center mb-3 bg-light p-3 rounded">
-          <div class="col text-end">
-            <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+          <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
+            <h4>3. ຊຸດກຳມະການ</h4>
+            <?php foreach ($director_items as $item) : ?>
+              <div class="d-flex justify-content-center">
+                <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
+                <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
+              </div><br>
+              <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+                <div class="col text-end">
+                  <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+                </div>
+                <div class="col-6 text-start">
+                  <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
+                  <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
+                </div>
+                <div class="col text-center">
+                  <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+
+                </div>
+              </div>
+            <?php endforeach; ?>
+
           </div>
-          <div class="col-6 text-start">
-            <h6><?= $item['amulet_pre_name'] ?> </h6>
-            <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
+          <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
+            <h4>4. ອົງບູຊາຂະໜາດ 9 ນິ້ວ</h4>
+            <?php foreach ($buddha_9_items as $item) : ?>
+              <div class="d-flex justify-content-center">
+                <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
+                <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
+              </div><br>
+              <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+                <div class="col text-end">
+                  <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+                </div>
+                <div class="col-6 text-start">
+                  <h6><?= $item['amulet_pre_name'] ?> </h6>
+                  <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
+                </div>
+                <div class="col text-center">
+                  <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+
+                </div>
+              </div>
+            <?php endforeach; ?>
           </div>
-          <div class="col text-center">
-            <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+        </div>
+        <div class="d-flex mb-3">
+
+          <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
+            <h4>5. ອົງບູຊາຂະໜາດ 5 ນິ້ວ</h4>
+            <?php foreach ($buddha_5_items as $item) : ?>
+              <div class="d-flex justify-content-center">
+                <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
+                <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
+              </div><br>
+              <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+                <div class="col text-end">
+                  <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+                </div>
+                <div class="col-6 text-start">
+                  <h6><?= $item['amulet_pre_name'] ?> </h6>
+                  <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
+                </div>
+                <div class="col text-center">
+                  <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+          <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
+            <h4>6. ລຸ້ນເນື້ອ</h4>
+            <?php foreach ($random_items as $item) : ?>
+              <div class="d-flex justify-content-center">
+                <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
+                <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
+              </div><br>
+              <div class="row justify-content-center mb-3 bg-light p-3 rounded">
+                <div class="col text-end">
+                  <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
+                </div>
+                <div class="col-6 text-start">
+                  <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
+                  <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
+                </div>
+                <div class="col text-center">
+                  <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
+
+                </div>
+              </div>
+            <?php endforeach; ?>
 
           </div>
         </div>
-      <?php endforeach; ?>
+
+      </div>
     </div>
-  </div>
-  <div class="d-flex mb-3">
-
-    <div class="col text-start cardBg rounded p-3 justify-content-center align-items-center">
-      <h4>5. ອົງບູຊາຂະໜາດ 5 ນິ້ວ</h4>
-      <?php foreach ($buddha_5_items as $item) : ?>
-        <div class="d-flex justify-content-center">
-          <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
-          <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
-        </div><br>
-        <div class="row justify-content-center mb-3 bg-light p-3 rounded">
-          <div class="col text-end">
-            <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
-          </div>
-          <div class="col-6 text-start">
-            <h6><?= $item['amulet_pre_name'] ?> </h6>
-            <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
-          </div>
-          <div class="col text-center">
-            <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
-
-          </div>
-        </div>
-      <?php endforeach; ?>
-    </div>
-    <div class="col ms-5 text-start cardBg rounded p-3 justify-content-center align-items-center">
-      <h4>6. ລຸ້ນເນື້ອ</h4>
-      <?php foreach ($random_items as $item) : ?>
-        <div class="d-flex justify-content-center">
-          <h5 class="p-1 bg-light rounded">ລາຄາ: <span><?= number_format($item['amulet_pre_price']) ?> </span>ກີບ</h5>
-          <h5 class="p-1 bg-light rounded ms-3">ສ້າງທັງໝົດ <span><?= $item['totalquantity'] ?> </span>ຫຼຽນ</h5>
-        </div><br>
-        <div class="row justify-content-center mb-3 bg-light p-3 rounded">
-          <div class="col text-end">
-            <img src="./img/amulet_pre.png" class="me-5 border border-warning rounded-circle" alt="" width="80px">
-          </div>
-          <div class="col-6 text-start">
-            <h6><?= $item['amulet_pre_name'] ?> (ສຸ່ມລົງຢາ)</h6>
-            <h5>ຍັງເຫຼືອ <?= $item['stock'] ?> ຫຼຽນ</h5>
-          </div>
-          <div class="col text-center">
-            <button class="add-preorder btn btn-light border" data-id="<?= $item['amulet_pre_id'] ?>">ເລືອກ</button>
-
-          </div>
-        </div>
-      <?php endforeach; ?>
-
-    </div>
-  </div>
-
-  </div>
-  </div>
-
-
-<?php endif; ?>
+  <?php endif; ?>
 </body><br>
-<?php include('footer.php') ?>
 
+<!-- <?php include('footer.php') ?> -->
 </html>

@@ -34,7 +34,7 @@ foreach ($cart as $id => $item) {
     $amulet_pre_id = $item['amulet_pre_id'];
     $amulet_user_pre_amount = $item['quantity'];
     $amulet_pre_price = $item['amulet_pre_price'];
-    $preorder_status = "Pending"; // Initial status of the preorder
+    $preorder_status = "Approved"; // Initial status of the preorder
     $preorder_transfer_image = $target_file; // Path to the uploaded image
 
     $sql = "INSERT INTO preorderlist (preorderlist_id, preorder_id, amulet_pre_id, amulet_user_pre_amount, amulet_pre_price, user_id, preorder_status, preorder_address, preorder_transfer_image)
@@ -42,12 +42,18 @@ foreach ($cart as $id => $item) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("iiiissss", $preorder_id, $amulet_pre_id, $amulet_user_pre_amount, $amulet_pre_price, $user_id, $preorder_status, $preorder_address, $preorder_transfer_image);
     $stmt->execute();
+
+    // Decrease stock quantity in preorderdetails
+    $decreaseStockSql = "UPDATE preorderdetails SET stock = stock - ? WHERE amulet_pre_id = ?";
+    $stmt = $conn->prepare($decreaseStockSql);
+    $stmt->bind_param('ii', $amulet_user_pre_amount, $amulet_pre_id);
+    $stmt->execute();
     $stmt->close();
 }
 
 // Clear the cart after successful submission
 unset($_SESSION['cart']);
 
-header("Location: success.php");
+header("Location: index.php");
 exit();
 ?>

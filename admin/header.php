@@ -1,7 +1,6 @@
 <?php
 // Start the session
 session_start();
-echo($_SESSION['role']);
 if ($_SESSION['role'] !== "admin") {
     header("Location: ../logout.php");
 } 
@@ -103,7 +102,7 @@ if ($_SESSION['role'] !== "admin") {
                 navItems[0].classList.add('active');
             } else if (fileName == 'preorder_list.php') {
                 navItems[1].classList.add('active');
-            } else if (fileName == 'preorder_form.php') {
+            } else if (fileName == 'suspensionlist.php') {
                 navItems[2].classList.add('active');
             } 
         }

@@ -13,10 +13,10 @@
     <div class="container col-8">
         <h4 class="mt-3 mb-3">ຟອມເປີດຈອງພຣະເຄື່ອງ</h4>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="preorderForm">
             <div class="form-group mb-2">
                 <label for="preorder_amulet_name">ຊື່ລຸ້ນ</label>
-                <input type="text" class="form-control" id="preorder_amulet_name" name="preorder_amulet_name" required>
+                <input type="text" class="form-control" id="preorder_amulet_name" name="preorder_amulet_name" required >
             </div>
             <div class="form-group">
                 <label for="preorder_detail">ລາຍລະອຽດ (ປະຫວັດຄວາມເປັນມາ)</label>
@@ -37,10 +37,10 @@
                 echo "
                 <h5 class='form-label mt-3'>{$amulet['name']}</h5>
                 <label for='{$amulet['id']}'>ສ້າງທັງໝົດ</label>
-                <input type='number' class='border rounded p-1 mb-3 type-input w-25' id='{$amulet['id']}' name='{$amulet['id']}_total' required>
+                <input type='number' class='border rounded p-1 mb-3 type-input w-25' id='{$amulet['id']}' name='{$amulet['id']}_total' required >
                 <label for='{$amulet['id']}'>ອົງ</label>
                 <label for='price' class='ms-5'>ລາຄາ</label>
-                <input type='number' class='border rounded p-1 mb-3 type-input w-50' id='{$amulet['id']}_price' name='{$amulet['id']}_price' step='100000' required>
+                <input type='number' class='border rounded p-1 mb-3 type-input w-50' id='{$amulet['id']}_price' name='{$amulet['id']}_price' step='100000' >
                 ";
             }
             ?>
@@ -50,7 +50,7 @@
                 <?php for ($i = 1; $i <= 5; $i++) : ?>
                     <div class="me-3">
                         <label for="customFile<?= $i ?>" class="form-label">ຮູບທີ <?= $i ?></label>
-                        <input type="file" class="form-control" id="customFile<?= $i ?>" name="amulet_pre_img<?= $i ?>" accept="image/*" required />
+                        <input type="file" class="form-control" id="customFile<?= $i ?>" name="amulet_pre_img<?= $i ?>" accept="image/*" />
                     </div>
                 <?php endfor; ?>
             </div>
@@ -62,6 +62,7 @@
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include('../config.php');
+        if (isset($_POST['preorder_amulet_name'])) {
 
         $amulet_name = mysqli_real_escape_string($conn, $_POST['preorder_amulet_name']);
         $preorder_detail = mysqli_real_escape_string($conn, $_POST['preorder_detail']);
@@ -77,76 +78,88 @@
             if ($check !== false) {
                 $uploadOk = 1;
             } else {
-                echo "File is not an image.";
+                return "File is not an image.";
                 $uploadOk = 0;
             }
 
             if (file_exists($target_file)) {
-                echo "Sorry, file already exists.";
+                return "Sorry, file already exists.";
                 $uploadOk = 0;
             }
 
             if ($file["size"] > 1000000) {
-                echo "Sorry, your file is too large.";
+                return "Sorry, your file is too large.";
                 $uploadOk = 0;
             }
 
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                && $imageFileType != "gif") {
-                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                return "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                 $uploadOk = 0;
             }
 
             if ($uploadOk == 0) {
-                echo "Sorry, your file was not uploaded.";
+                return "Sorry, your file was not uploaded.";
             } else {
                 if (move_uploaded_file($file["tmp_name"], $target_file)) {
                     return $target_file;
                 } else {
-                    echo "Sorry, there was an error uploading your file.";
+                    return "Sorry, there was an error uploading your file.";
                 }
             }
-            return "";
         }
+    }
 
         $image_paths = [];
+        $upload_failed = false;
+        $error_messages = [];
+
         for ($i = 1; $i <= 5; $i++) {
-            $image_paths[] = uploadImage($_FILES["amulet_pre_img$i"], $target_dir);
+            $upload_result = uploadImage($_FILES["amulet_pre_img$i"], $target_dir);
+            if (strpos($upload_result, "Sorry") !== false) {
+                $upload_failed = true;
+                $error_messages[] = "Image $i: $upload_result";
+            }
+            $image_paths[] = $upload_result;
         }
 
-        $stmt1 = $conn->prepare("INSERT INTO preorder (preorder_amulet_name, preorder_detail, preorder_status, amulet_pre_img1, amulet_pre_img2, amulet_pre_img3, amulet_pre_img4, amulet_pre_img5) VALUES (?, ?, 'open', ?, ?, ?, ?, ?)");
-        $stmt1->bind_param("sssssss", $amulet_name, $preorder_detail, $image_paths[0], $image_paths[1], $image_paths[2], $image_paths[3], $image_paths[4]);
+        if ($upload_failed) {
+            echo '<script>Swal.fire("Error", "'.implode('<br>', $error_messages).'", "error");</script>';
+        } else {
+            $stmt1 = $conn->prepare("INSERT INTO preorder (preorder_amulet_name, preorder_detail, preorder_status, amulet_pre_img1, amulet_pre_img2, amulet_pre_img3, amulet_pre_img4, amulet_pre_img5) VALUES (?, ?, 'open', ?, ?, ?, ?, ?)");
+            $stmt1->bind_param("sssssss", $amulet_name, $preorder_detail, $image_paths[0], $image_paths[1], $image_paths[2], $image_paths[3], $image_paths[4]);
 
-        if ($stmt1->execute()) {
-            $preorder_id = $stmt1->insert_id;
+            if ($stmt1->execute()) {
+                $preorder_id = $stmt1->insert_id;
 
-            $stmt2 = $conn->prepare("INSERT INTO preorderdetails (preorder_id, amulet_pre_name, amulet_pre_group, amulet_pre_price, totalquantity, stock) VALUES (?, ?, ?, ?, ?, ?)");
-            foreach ($amulets as $amulet) {
-                $amulet_pre_name = $amulet['name'];
-                $amulet_pre_group = $amulet['id'];
-                $amulet_pre_price = mysqli_real_escape_string($conn, $_POST["{$amulet['id']}_price"]);
-                $totalquantity = mysqli_real_escape_string($conn, $_POST["{$amulet['id']}_total"]);
-                $stmt2->bind_param("issii", $preorder_id, $amulet_pre_name, $amulet_pre_group, $amulet_pre_price, $totalquantity, $totalquantity);
-                $stmt2->execute();
+                $stmt2 = $conn->prepare("INSERT INTO preorderdetails (preorder_id, amulet_pre_name, amulet_pre_group, amulet_pre_price, totalquantity, stock) VALUES (?, ?, ?, ?, ?, ?)");
+                foreach ($amulets as $amulet) {
+                    $amulet_pre_name = $amulet['name'];
+                    $amulet_pre_group = $amulet['id'];
+                    $amulet_pre_price = mysqli_real_escape_string($conn, $_POST["{$amulet['id']}_price"]);
+                    $totalquantity = mysqli_real_escape_string($conn, $_POST["{$amulet['id']}_total"]);
+                    $stmt2->bind_param("issiii", $preorder_id, $amulet_pre_name, $amulet_pre_group, $amulet_pre_price, $totalquantity, $totalquantity);
+                    $stmt2->execute();
 
-                // Get the last inserted preorderdetails_id
-                $preorderdetails_id = $stmt2->insert_id;
+                    // Get the last inserted preorderdetails_id
+                    $preorderdetails_id = $stmt2->insert_id;
 
-                // Update the amulet_pre_id to be the same as preorderdetails_id
-                $stmt3 = $conn->prepare("UPDATE preorderdetails SET amulet_pre_id = ? WHERE preorderdetails_id = ?");
-                $stmt3->bind_param("ii", $preorderdetails_id, $preorderdetails_id);
-                $stmt3->execute();
-                $stmt3->close();
+                    // Update the amulet_pre_id to be the same as preorderdetails_id
+                    $stmt3 = $conn->prepare("UPDATE preorderdetails SET amulet_pre_id = ? WHERE preorderdetails_id = ?");
+                    $stmt3->bind_param("ii", $preorderdetails_id, $preorderdetails_id);
+                    $stmt3->execute();
+                    $stmt3->close();
+                }
+
+                echo '<script>Swal.fire("Success", "Data inserted successfully!", "success");</script>';
+
+                $stmt2->close();
+            } else {
+                echo '<script>Swal.fire("Error", "Data insertion failed!", "error");</script>';
             }
 
-            echo '<script>Swal.fire("Success", "Data inserted successfully!", "success");</script>';
-
-            $stmt2->close();
-        } else {
-            echo '<script>Swal.fire("Error", "Data insertion failed!", "error");</script>';
+            $stmt1->close();
         }
 
-        $stmt1->close();
         $conn->close();
     }
     ?>
@@ -161,6 +174,9 @@
         fileInputs.forEach(function(input) {
             if (input.files.length === 0) {
                 isEmpty = true;
+                input.classList.add('is-invalid');
+            } else {
+                input.classList.remove('is-invalid');
             }
         });
 
@@ -170,5 +186,11 @@
         }
     });
 </script>
+
+<style>
+    .is-invalid {
+        border-color: #dc3545;
+    }
+</style>
 
 </html>

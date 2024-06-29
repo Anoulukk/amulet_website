@@ -52,7 +52,7 @@ if (!$stmt) {
             showConfirmButton: true
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = 'success.php'; // Redirect to success page
+                window.location.href = 'index.php'; // Redirect to success page
             }
         });
         </script>";

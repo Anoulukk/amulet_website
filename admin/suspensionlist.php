@@ -1,6 +1,16 @@
 <?php
 // Start the session
+include("../config.php");
+// SQL query to fetch data from the suspensionlist table
+$sql = "SELECT s.*, u.username AS reporter_name, u.telephone AS reporter_phone
+        FROM suspensionlist s
+        JOIN user u ON s.reporter_id = u.user_id";
+$result = $conn->query($sql);
 
+// Check for SQL errors
+if (!$result) {
+    die("Error in SQL query: " . $conn->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,86 +20,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>suspensions</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <?php include('header.php'); ?>
 
     <div class="container">
-    <div class="row">
-                    <h4 class="mt-3 ">ລາຍງານຍອດຈອງ</h4>
-                    <h5 class="text-danger">ຍອດຈອງທັງໝົດມີ 2 ລາຍການ</h5>
-                </div>
-                <div class="row">
-                    <hr>
-                    <div class="row   ">
-                        <h4 class="">ລາຍການຈອງ</h4>
+        <div class="row">
+            <h4 class="mt-3">ລາຍງານຍອດຈອງ</h4>
+            <h5 class="text-danger">ຍອດຈອງທັງໝົດມີ <?php echo $result->num_rows; ?> ລາຍການ</h5>
+        </div>
+        <div class="row">
+            <hr>
+            <div class="row">
+                <h4 class="">ລາຍການຈອງ</h4>
 
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ລຳດັບ</th>
-                                    <th scope="col">ລະຫັດສິນຄ້າ</th>
-                                    <th scope="col">ຊື່ສິນຄ້າ</th>
-                                    <th scope="col">ຊື່ຜູ້ສັ່ງຈອງ</th>
-                                    <th scope="col">ເບີໂທຜູ້ຂໍສັ່ງຈອງ</th>
-                                    <th scope="col">ການຊຳລະເງີນ</th>
-                                    <th scope="col">ອະນຸມັດການຈອງ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>001</td>
-                                    <td>ຫລຽນພຣະຊາຄຳແດງ</td>
-                                    <td>mossphakhg</td>
-                                    <td>02055667789</td>
-                                    <td>ຍັງບໍ່ທັນຈ່າຍ</td>
-                                    <td><button class="btn btn-sm btn-warning close-sale">ອອກໃບບິນ</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>002</td>
-                                    <td>ຫລຽນພຣະຊາຄຳແດງ</td>
-                                    <td>mossphakhg</td>
-                                    <td>02055667789</td>
-                                    <td>ຈ່າຍແລ້ວ</td>
-                                    <td><button class="btn btn-sm btn-warning close-sale">ອອກໃບບິນ</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ລຳດັບ</th>
+                            <th scope="col">ລະຫັດຮ້ານຄ້າຖືກລາຍງານ</th>
+                            <th scope="col">ລາຍລະອຽດຄຳຕິຊົມ</th>
+                            <th scope="col">ວັນທີ່ລາຍງານ</th>
+                            <th scope="col">ສະຖານະ</th>
+                            <th scope="col">ຊື່ຜູ້ລາຍງານ</th>
+                            <th scope="col">ເບີໂທຜູ້ລາຍງານ</th>
+                            <th scope="col">ການດຳເນີນການ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            $index = 1;
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<th scope='row'>{$index}</th>";
+                                echo "<td>{$row['seller_id']}</td>";
+                                echo "<td>{$row['feedback_detail']}</td>";
+                                echo "<td>{$row['feedback_date']}</td>";
+                                echo "<td>{$row['suspension_status']}</td>";
+                                echo "<td>{$row['reporter_name']}</td>";
+                                echo "<td>{$row['reporter_phone']}</td>";
+                                if ($row['suspension_status'] != 'disabled') {
+                                    echo "<td><button class='btn btn-sm btn-warning' onclick='disableSuspension({$row['suspension_id']}, {$row['seller_id']})'>ລະງັບການໃຊ້ງານ</button></td>";
+                                } else {
+                                    echo "<td></td>";
+                                }
+                                echo "</tr>";
+                                $index++;
+                            }
+                        } else {
+                            echo "<tr><td colspan='8'>No suspensions found</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            const links = document.querySelectorAll('.category');
-            const reportContainer = document.getElementById('report-container');
-
-            links.forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const reportUrl = this.getAttribute('data-report');
-                    loadReport(reportUrl);
+  <script>
+    function disableSuspension(suspensionId, sellerId) {
+        Swal.fire({
+            title: 'ລະງັບຜູ້ໃຊ້!',
+            text: "ທ່ານຕ້ອງການທີ່ຈະລະງັບຜູ້ໃຊ້ນີ້ແທ້ ຫຼື ບໍ່",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ແມ່ນແລ້ວ',
+            cancelButtonText: 'ບໍ່'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'disable_suspension.php',
+                    type: 'POST',
+                    data: {
+                        suspension_id: suspensionId,
+                        seller_id: sellerId
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'ສຳເລັດ!',
+                            text: response,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'An error occurred while disabling the suspension.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
                 });
-            });
-
-            function loadReport(reportUrl) {
-                fetch(reportUrl)
-                    .then(response => response.text())
-                    .then(data => {
-                        reportContainer.innerHTML = data;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching the report:', error);
-                    });
             }
-            loadReport("report_preorder.php");
-
         });
-    </script>
-</body>
+    }
+</script>
 
+</body>
 </html>

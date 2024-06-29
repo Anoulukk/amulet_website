@@ -84,7 +84,7 @@ if ($stmt = $conn->prepare($query)) {
                             <th scope="col">ຊື່ຜູ້ສັ່ງຈອງ</th>
                             <th scope="col">ເບີໂທຜູ້ສັ່ງຈອງ</th>
                             <th scope="col">ລາຍລະອຽດ</th>
-                            <th scope="col">ອະນຸມັດການຈອງ</th>
+                            <!-- <th scope="col">ອະນຸມັດການຈອງ</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -106,7 +106,7 @@ if ($stmt = $conn->prepare($query)) {
                                         ລາຍລະອຽດ
                                     </button>
                                 </td>
-                                <td><button class="btn btn-sm btn-warning close-sale">ອອກໃບບິນ</button></td>
+                                <!-- <td><button class="btn btn-sm btn-warning close-sale">ອອກໃບບິນ</button></td> -->
                             </tr>
                         <?php } ?>
                     </tbody>
