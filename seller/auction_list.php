@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +10,11 @@
 
 <body>
   
-<?php  ?>
 <?php
 // Start the session and include configuration
 include('../config.php');
 include('header.php');
+
 // Check if the user is logged in and user_id is set in the session
 if (!isset($_SESSION['user_id'])) {
     // If user_id is not set, redirect to the login page
@@ -25,6 +23,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $userId = $_SESSION['user_id'];
+
 // Fetch the seller_id using the user_id
 $sellerQuery = "SELECT seller_id FROM seller WHERE user_id = $userId";
 $sellerResult = mysqli_query($conn, $sellerQuery);
@@ -38,11 +37,12 @@ if (mysqli_num_rows($sellerResult) > 0) {
 }
 
 // Fetch auction details where auction_status is "ປິດປະມູນ" and seller_id matches the logged-in user's user_id
-$sql = "SELECT a.auction_id, a.amulet_auction_name, a.auction_status, a.user_id AS winner_id, u.username AS winner_name, u.telephone AS winner_phone, al.auction_price AS winning_price 
+$sql = "SELECT a.auction_id, a.amulet_auction_name, a.auction_status, u.user_id AS winner_id, u.username AS winner_name, u.telephone AS winner_phone, al.auction_price AS winning_price 
         FROM auction a
-        INNER JOIN user u ON a.user_id = u.user_id
         INNER JOIN auctionlist al ON a.auction_id = al.auction_id
+        INNER JOIN user u ON al.user_id = u.user_id
         WHERE a.auction_status = 'ປິດປະມູນ' AND a.seller_id = $sellerId
+        AND al.auction_price = (SELECT MAX(auction_price) FROM auctionlist WHERE auction_id = a.auction_id)
         ORDER BY a.auction_id";
 
 $result = mysqli_query($conn, $sql);
@@ -82,7 +82,7 @@ mysqli_close($conn);
                 echo "<td>{$auction['winner_name']}</td>";
                 echo "<td>{$auction['winning_price']} <span>ກີບ</span></td>";
                 echo "<td>{$auction['winner_phone']}</td>";
-                echo "<td><a class='btn btn-sm btn-warning' href='../auction_detail.php?auction_id={$auction['auction_id']}'>ເຂົ້າເບິ່ງ</a></td>";
+                echo "<td><a class='btn btn-sm btn-warning' href='clear_session.php?auction_id={$auction['auction_id']}'>ເຂົ້າເບິ່ງ</a></td>";
                 echo "</tr>";
                 $index++;
             }

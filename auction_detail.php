@@ -33,7 +33,7 @@ if (isset($_GET['auction_id'])) {
 
         // Calculate the remaining time in seconds
         $current_time = date('Y-m-d H:i:s');
-        $remaining_time = strtotime($auction_end_time) - strtotime($current_time);
+        $remaining_time = (strtotime($auction_end_time) - strtotime($current_time)) - (5 * 3600);
 
         // Fetch the highest bid and the corresponding user from auctionlist and user table
         $winning_bid_sql = "SELECT al.auction_price, u.username FROM auctionlist al JOIN user u ON al.user_id = u.user_id WHERE al.auction_id = $auction_id ORDER BY al.auction_price DESC LIMIT 1";
@@ -118,7 +118,7 @@ if (isset($_GET['auction_id'])) {
                         <div class="bid-section">
                         <form id="bid-form" class="form-group">
     <div class="input-group">
-        <input type="number" id="bid-amount" class="form-control" placeholder="ປ້ອນລາຄາ" step="100" max="999999999">
+        <input type="number" id="bid-amount" class="form-control" placeholder="ປ້ອນລາຄາ"  max="999999999">
         <button type="submit" id="place-bid" class="btn btn-dark">ສະເໜີລາຄາ</button>
     </div>
 </form>
@@ -158,12 +158,14 @@ if (isset($_GET['auction_id'])) {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
     const bidAmountInput = document.getElementById("bid-amount");
-
+if (bidAmountInput) {
+    
     bidAmountInput.addEventListener("input", function () {
         if (this.value > 999999999) {
             this.value = 100000000;
         }
     });
+}
     
 });
 

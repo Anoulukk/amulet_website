@@ -90,7 +90,7 @@
                     $sql = "SELECT r.register_id, r.user_id, r.register_date, r.status, u.username, u.lastname, u.telephone
                         FROM register r
                         INNER JOIN user u ON r.user_id = u.user_id
-                        WHERE r.status = 'Active'";
+                        WHERE r.status != 'Pending'";
 
                     $result = mysqli_query($conn, $sql);
 

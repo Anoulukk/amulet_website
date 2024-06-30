@@ -230,6 +230,7 @@ body {
     align-items: center;
     border: 1px solid #ffffff;
     border-radius: 5px;
+    max-height: 50%;
     /* background-color: #FFF6CA; */
     
 }
@@ -311,12 +312,15 @@ body {
     width: 98%;
 }
 .store-name {
-    color: rgb(71, 71, 71);
+    display: inline-block;
+    width: 100%;
     background-color: #FFF6CA;
-    margin: 0 0 5px 0;
-    transition: background-color 0.3s ease;
-    
-}
+    color: rgb(71, 71, 71);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+  }
 
 
 .store-name:hover {

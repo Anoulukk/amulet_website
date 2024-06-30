@@ -31,31 +31,26 @@ if ($seller_id > 0) {
     $result2 = mysqli_query($conn, $sql2);
     $amulets = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
-    // Fetch auction details and update status if time is up
-    $sql_auction = "SELECT * FROM auction WHERE seller_id = $seller_id";
-    $result_auction = mysqli_query($conn, $sql_auction);
-    $amulets_auction = mysqli_fetch_all($result_auction, MYSQLI_ASSOC);
-    $current_time = date('Y-m-d H:i:s');
+    $sql_auction = "SELECT * FROM auction WHERE seller_id = '$seller_id'";
+  $result_auction = mysqli_query($conn, $sql_auction);
+  $amulets_auction = array();
+  $current_time = date('Y-m-d H:i:s');
 
-    foreach ($amulets_auction as &$amulet) {
-        $auction_end_time = date('Y-m-d H:i:s', strtotime($amulet['amulet_auction_date'] . ' + ' . $amulet['countdown_days'] . ' days'));
-        if ($current_time >= $auction_end_time && $amulet['auction_status'] !== 'ປິດປະມູນ') {
-            $auction_id = $amulet['auction_id'];
-            $highest_bid_sql = "SELECT user_id FROM auctionlist WHERE auction_id = $auction_id ORDER BY auction_price DESC LIMIT 1";
-            $highest_bid_result = mysqli_query($conn, $highest_bid_sql);
-            if (mysqli_num_rows($highest_bid_result) > 0) {
-                $highest_bid_row = mysqli_fetch_assoc($highest_bid_result);
-                $highest_bid_user_id = $highest_bid_row['user_id'];
-            } else {
-                $highest_bid_user_id = null;
-            }
+  while ($row = mysqli_fetch_assoc($result_auction)) {
+    $auction_end_time = date('Y-m-d H:i:s', strtotime($row['amulet_auction_date'] . ' + ' . $row['countdown_days'] . ' days'));
+    if ($current_time >= $auction_end_time && $row['auction_status'] !== 'ປິດປະມູນ') {
+      $auction_id = $row['auction_id'];
+      $highest_bid_sql = "SELECT user_id FROM auctionlist WHERE auction_id = $auction_id ORDER BY auction_price DESC LIMIT 1";
+      $highest_bid_result = mysqli_query($conn, $highest_bid_sql);
+      $highest_bid_user_id = (mysqli_num_rows($highest_bid_result) > 0) ? mysqli_fetch_assoc($highest_bid_result)['user_id'] : null;
 
-            $update_sql = "UPDATE auction SET auction_status = 'ປິດປະມູນ', user_id = '$highest_bid_user_id' WHERE auction_id = $auction_id";
-            mysqli_query($conn, $update_sql);
-            $amulet['auction_status'] = 'ປິດປະມູນ';
-            $amulet['user_id'] = $highest_bid_user_id;
-        }
+      $update_sql = "UPDATE auction SET auction_status = 'ປິດປະມູນ', user_id = '$highest_bid_user_id' WHERE auction_id = $auction_id";
+      mysqli_query($conn, $update_sql);
+      $row['auction_status'] = 'ປິດປະມູນ';
+      $row['user_id'] = $highest_bid_user_id;
     }
+    $amulets_auction[] = $row;
+  }
 } else {
     echo "<p>Invalid Store ID</p>";
     exit;

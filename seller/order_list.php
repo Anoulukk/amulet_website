@@ -1,13 +1,4 @@
-<?php
-// Start the session and include database configuration
-include("../config.php");
 
-// Fetch data from the orderamulet and amuletsell tables with a join
-$sql = "SELECT o.*, a.*
-        FROM orderamulet o
-        INNER JOIN amuletsell a ON o.amulet_sell_id = a.amulet_sell_id";
-$result = $conn->query($sql);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +11,37 @@ $result = $conn->query($sql);
 
 <body>
     <?php include('header.php'); ?>
+    <?php
+// Start the session and include database configuration
+include("../config.php");
+
+// Assuming user_id is stored in the session after login
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if user_id is not set
+    header('Location: ../logout.php');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+// Fetch seller_id using user_id
+$seller_sql = "SELECT seller_id FROM seller WHERE user_id = '$user_id'";
+$seller_result = $conn->query($seller_sql);
+
+if ($seller_result->num_rows > 0) {
+    $seller_row = $seller_result->fetch_assoc();
+    $seller_id = $seller_row['seller_id'];
+} else {
+    // Handle the case where no seller is found for the logged-in user
+    exit();
+}
+
+// Fetch data from the orderamulet and amuletsell tables with a join
+$sql = "SELECT o.*, a.*
+        FROM orderamulet o
+        INNER JOIN amuletsell a ON o.amulet_sell_id = a.amulet_sell_id
+        WHERE a.seller_id = '$seller_id'";
+$result = $conn->query($sql);
+?>
     <h3 class="text-center mt-3 mb-3">ລາຍການທີ່ລູກຄ້າຂໍສັ່ງຊື້</h3>
     <div class="container">
         <div class="row">
@@ -60,10 +82,9 @@ $result = $conn->query($sql);
                                 }
                             }
                         } else {
-                            echo "No orders found.";
+                            echo "<tr><td colspan='6'>No orders found.</td></tr>";
                         }
                         ?>
-
                     </tbody>
                 </table>
             </div>

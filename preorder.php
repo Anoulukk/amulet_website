@@ -177,9 +177,9 @@ if ($result->num_rows > 0) {
         <p class="bg-light rounded p-1 me-3 mb-0 cursor-pointer">ອົງບູຊາ ຂະໜາດ 5 ນິ້ວ</p>
       </div>
       <?php if ($role === "user" || $role == null) : ?>
-        <a href="login.php" class="btn btn-danger mt-3">ເຂົ້າສູ່ລະບົບເພື່ອຈອງ</a>
-      <?php endif; ?>
-
+        <a href="login.php" class="btn btn-danger mt-3 mb-5">ເຂົ້າສູ່ລະບົບເພື່ອຈອງ</a>
+      <?php else : ?>
+        
       <?php if (isset($no_data_message)) : ?>
         <div class="alert alert-warning mt-3">
           <?= $no_data_message ?>
@@ -336,6 +336,8 @@ if ($result->num_rows > 0) {
       </div>
     </div>
   <?php endif; ?>
+        <?php endif; ?>
+
 </body><br>
 
 <!-- <?php include('footer.php') ?> -->

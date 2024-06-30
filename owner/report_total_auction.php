@@ -35,7 +35,6 @@ $result = $conn->query($sql);
                         <tr>
                             <th scope="col">ລຳດັບ</th>
                             <th scope="col">ຊື່ສິນຄ້າ</th>
-                            <th scope="col">ລາຍລະອຽດ</th>
                             <th scope="col">ວັນທີ່ປະມູນ</th>
                             <th scope="col">ຮ້ານຄ້າ</th>
                             <th scope="col">ລາຄາເລີ່ມຕົ້ນ</th>
@@ -51,7 +50,6 @@ $result = $conn->query($sql);
                             <tr>
                                 <th scope="row"><?php echo $index++; ?></th>
                                 <td><?php echo htmlspecialchars($row['amulet_auction_name']); ?></td>
-                                <td><?php echo htmlspecialchars($row['amulet_auction_detail']); ?></td>
                                 <td><?php echo htmlspecialchars($row['amulet_auction_date']); ?></td>
                                 <td><?php echo htmlspecialchars($row['store_name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['start_bid']); ?></td>

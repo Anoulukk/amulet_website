@@ -20,26 +20,26 @@
 					<h3>ເຂົ້າສູ່ລະບົບ</h3>
 				</div>
 				<div class="card-body">
-					<form method="post">
-						<div class="input-group form-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" class="form-control" placeholder="username" name="username" autocomplete="off">
-						</div>
-						<div class="input-group form-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
-							<input type="password" class="form-control" placeholder="password" name="password">
-						</div>
-						<div class="row align-items-center remember">
-							<input type="checkbox" name="remember">ຈື່ບັນຊີຂອງຂ້ອຍ
-						</div>
-						<div class="form-group text-center">
-							<input type="submit" value="ເຂົ້າສູ່ລະບົບ" class="btn login_btn">
-						</div>
-					</form>
+				<form method="post" id="loginForm">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="username" name="username" id="username" autocomplete="off">
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" class="form-control" placeholder="password" name="password" id="password">
+                        </div>
+                        <div class="row align-items-center remember">
+                            <input type="checkbox" name="remember" id="remember">ຈື່ບັນຊີຂອງຂ້ອຍ
+                        </div>
+                        <div class="form-group text-center">
+                            <input type="submit" value="ເຂົ້າສູ່ລະບົບ" class="btn login_btn">
+                        </div>
+                    </form>
 					<?php
     // Start the session
     session_start();
@@ -181,6 +181,29 @@
 			</div>
 		</div>
 	</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if username and password are stored in local storage
+            if (localStorage.getItem("username") && localStorage.getItem("password")) {
+                document.getElementById("username").value = localStorage.getItem("username");
+                document.getElementById("password").value = localStorage.getItem("password");
+                document.getElementById("remember").checked = true;
+            }
+
+            document.getElementById("loginForm").addEventListener("submit", function() {
+                // Check if the remember checkbox is checked
+                if (document.getElementById("remember").checked) {
+                    // Save username and password to local storage
+                    localStorage.setItem("username", document.getElementById("username").value);
+                    localStorage.setItem("password", document.getElementById("password").value);
+                } else {
+                    // Clear local storage
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("password");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -27,7 +27,6 @@ $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
-
 ?>
 
 <!DOCTYPE html>
@@ -52,24 +51,35 @@ $result = $stmt->get_result();
               <th scope="col">ລຳດັບ</th>
               <th scope="col">ຊື່ຮ້ານຄ້າ</th>
               <th scope="col">ລາຍລະອຽດຮ້ານຄ້າ</th>
-              <th scope="col">ສະຖານະ</th>
               <th scope="col">ທີ່ຢູ່</th>
+              <th scope="col">ວັນທີສັ່ງ</th>
+              <th scope="col">ຈຳນວນສັ່ງ</th>
+              <th scope="col">ຊື່ພຣະ</th>
+              <th scope="col">ລາຍລະອຽດພຣະ</th>
+              <!-- <th scope="col">ລາຄາ</th> -->
+              <th scope="col">ຮູບພຣະ</th>
             </tr>
           </thead>
           <tbody>
           <?php
           if ($result->num_rows > 0) {
+            $index = 1;
               while ($row = $result->fetch_assoc()) {
                   echo "<tr>";
-                  echo "<th scope='row'>" . htmlspecialchars($row['orderamulet_id']) . "</th>";
+                  echo "<th scope='row'>" .  $index++ . "</th>";
                   echo "<td>" . htmlspecialchars($row['store_name']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['description']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['seller_address']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['preorder_status']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['preorder_address']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['orderamulet_date']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['orderamulet_qty']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['amulet_sell_name']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['amulet_sell_detail']) . "</td>";
+                  // echo "<td>" . htmlspecialchars($row['amulet_sell_price']) . "</td>";
+                  echo "<td><img src='./seller/" . htmlspecialchars($row['amulet_sell_img']) . "' alt='Amulet Image' width='50' height='50'></td>";
                   echo "</tr>";
               }
           } else {
-              echo "<tr><td colspan='9'>No orders found</td></tr>";
+              echo "<tr><td colspan='11'>No orders found</td></tr>";
           }
           ?>
           </tbody>
